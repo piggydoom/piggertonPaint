@@ -1,0 +1,25 @@
+@font-face {
+            font-family: calmSerifs;
+            src: url(assets/CalmSerif.otf);
+        }
+
+     @font-face {
+            font-family: boldSerifs;
+            src: url(assets/boldSerifs.otf);
+        }
+
+body{ 
+    background-color: antiquewhite;
+}
+
+header{
+    background-color: azure;
+    padding: 30px;
+    border-radius: 30px;
+    font-family: calm;
+}
+
+.colourMenuButton{
+ max-width: 10px;
+ max-height: 10px;
+}
