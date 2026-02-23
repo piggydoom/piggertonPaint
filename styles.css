@@ -12,14 +12,39 @@ body{
     background-color: antiquewhite;
 }
 
+
+
+
 header{
     background-color: azure;
     padding: 30px;
     border-radius: 30px;
-    font-family: calm;
+    /* font-family: "calmSerifs"; */
 }
 
-.colourMenuButton{
- max-width: 10px;
- max-height: 10px;
+.bStyle1{
+background-color: rgb(217, 236, 236); 
+border-color: transparent;
+border-radius: 30px;
+}
+
+canvas{
+    align-self: center;
+    display: block;
+    margin: auto;
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;
+    background-color: white;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+#colourSel{
+    display: none;
+    position:fixed;
+    z-index: 1;
+    width:50px;
+    height:50px;
+    background-color: aqua;
 }
