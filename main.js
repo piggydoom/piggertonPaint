@@ -25,10 +25,10 @@ if(colourSelDisplay === "none"){
      colourSelWindow.style.display = "flex";
      console.log("changeState init, determined to be none and attempted to show.");
      colourSelDisplay = "flex";
-} else if(colourSelDisplay === "flex"){
+} else{
 colourSelWindow.style.display = "none";
 console.log("changeState init, determined to be show and attempted to hide.");
-let colourSelDisplay = "none";
+colourSelDisplay = "none";
 };
 
 };
