@@ -1,14 +1,29 @@
 <!DOCTYPE html>
 <link rel="stylesheet" href="styles.css">
+
+<head>
 <title>piggerBoom</title>
+</head>
+
+
+<body>
 <header>piggerton paint very good simulator
+    <canvas id="headerCanvas"></canvas>
     <br>
     <button class="bStyle1" id="colourWheel"><img src="assets/colourWheel.png" style="width: 20px;"></button>
+    <br>
+    <input class="RGBinputs" id="RGB1" placeholder="RGB1">
+    <input class="RGBinputs" id="RGB2" placeholder="RGB2">
+    <input class="RGBinputs" id="RGB3" placeholder="RGB3">
+    
 </header>
 
 
-<canvas id="canvas" height="400px" width="1080px"></canvas>
+<canvas id="screen"></canvas>
+<canvas id="paintCanvas" height="400px" width="1080px"></canvas>
 
 <div id="colourSel">hello!</div>
 
 <script src="main.js"></script>
+
+</body>
