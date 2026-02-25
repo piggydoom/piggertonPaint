@@ -1,14 +1,14 @@
 const colourChange = document.getElementById("colourWheel");
 const colourSelWindow = document.getElementById("colourSel");
-const headerCanvas = document.getElementById("headerCanvas");
 const RGB1 = document.getElementById('RGB1');
 const RGB2 = document.getElementById('RGB2');
 const RGB3 = document.getElementById('RGB3');
+const paintCanvas = document.getElementById('paintCanvas')
 let R = RGB1.value;
 let G = RGB2.value;
 let B = RGB3.value;
 let colourSelDisplay = "none";
-
+let hoverOverCanvas;
 
 colourChange.onload = console.log("test");
 
@@ -66,3 +66,13 @@ colourChange.addEventListener("click", changeStateColourPicker);
 RGB1.addEventListener('input', colourSelWindowChange);
 RGB2.addEventListener('input', colourSelWindowChange);
 RGB3.addEventListener('input', colourSelWindowChange);
+
+
+paintCanvas.addEventListener("mouseenter", function(){
+     hoverOverCanvas = true;
+});
+
+paintCanvas.addEventListener("mouseenter", function(){
+     hoverOverCanvas = false;
+});
+
