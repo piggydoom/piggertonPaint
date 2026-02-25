@@ -1,10 +1,12 @@
 const colourChange = document.getElementById("colourWheel");
 const colourSelWindow = document.getElementById("colourSel");
 const headerCanvas = document.getElementById("headerCanvas");
-const ctx = headerCanvas.getContext('2d');
 const RGB1 = document.getElementById('RGB1');
 const RGB2 = document.getElementById('RGB2');
 const RGB3 = document.getElementById('RGB3');
+let R = RGB1.value;
+let G = RGB2.value;
+let B = RGB3.value;
 let colourSelDisplay = "none";
 
 
@@ -30,13 +32,12 @@ function openColourPicker(){
 
 function changeStateColourPicker(){
 if(colourSelDisplay === "none"){
-     colourSelWindow.style.display = "flex";
+     colourSelWindow.style.display = "inline";
      console.log("changeState init, determined to be none and attempted to show.");
-     colourSelDisplay = "flex";
      RGB1.style.display = "inline";
      RGB2.style.display = "inline";
      RGB3.style.display = "inline";
-     ctx.fillRect((RGB3.style.x + 4), (RGB3.style.y), 10, 10);
+     colourSelDisplay = "inline";
 } else{
 colourSelWindow.style.display = "none";
 console.log("changeState init, determined to be show and attempted to hide.");
@@ -47,15 +48,21 @@ RGB3.style.display = "none";
 };
 };
 
+function colourSelWindowChange(){
+     console.log("RGB val change detected")
+     
+     let R = RGB1.value;
+     let G = RGB2.value;
+     let B = RGB3.value;
 
+     colourSelWindow.style.backgroundColor = 'rgb(' + R + ',' + G + ',' + B + ')';
+     console.log("R" + R + " G" + G + " B" + B);
+
+
+};
 
 colourChange.addEventListener("click", changeStateColourPicker);
 
-
-function resizeCanvas() {
-  headerCanvas.width = canvas.offsetWidth;
-  headerCanvas.height = canvas.offsetHeight;
-}
-
-resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
+RGB1.addEventListener('input', colourSelWindowChange);
+RGB2.addEventListener('input', colourSelWindowChange);
+RGB3.addEventListener('input', colourSelWindowChange);
