@@ -78,18 +78,17 @@ paintCanvas.addEventListener("mouseleave", function(){
 
 function findMouseX(paintCanvas, evt){
 const paintCanvasPos = paintCanvas.getBoundingClientRect(); 
-    const mouseX = evt.clientX - paintCanvasPos.left;
-    const mouseY = evt.clientY - paintCanvasPos.top;
-        console.log('Xval= ' + mouseX + ' Yval= ' + mouseY);
+    mouseX = evt.clientX - paintCanvasPos.left;
+    // const mouseY = evt.clientY - paintCanvasPos.top;    
     {return mouseX};
 
 };
 
 function findMouseY(paintCanvas, evt){
 const paintCanvasPos = paintCanvas.getBoundingClientRect(); 
-    const mouseY = evt.clientY - paintCanvasPos.top;
+    mouseY = evt.clientY - paintCanvasPos.top;
         console.log('Xval= ' + mouseX + ' Yval= ' + mouseY);
-    {return mouseY};
+    {return mouseY};    
 
 };
 
@@ -121,6 +120,6 @@ setInterval(() => {
     
     paint();
 
-}, 1000);
+}, 1);
 
 
