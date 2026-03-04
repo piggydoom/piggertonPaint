@@ -9,10 +9,10 @@ let R = RGB1.value;
 let G = RGB2.value;
 let B = RGB3.value;
 let colourSelDisplay = "none";
-let hoverOverCanvas = "";
+var hoverOverCanvasW;
 let brushSize = "10"
-let mouseX = "";
-let mouseY = "";
+var mouseX;
+var mouseY;
 // //mouseX
 // paintCanvas.addEventListener('mousemove', function(event) {
 //   let mouseX = event.pageX;
@@ -68,11 +68,11 @@ RGB3.addEventListener('input', colourSelWindowChange);
 
 paintCanvas.addEventListener("mouseenter", function(){
      hoverOverCanvas = "true";
-     // console.log("over");
+     console.log("over");
 });
 
 paintCanvas.addEventListener("mouseleave", function(){
-     // console.log("not over")
+     console.log("not over")
      hoverOverCanvas = "false";
 });
 
@@ -93,27 +93,34 @@ const paintCanvasPos = paintCanvas.getBoundingClientRect();
 
 };
 
-
-document.addEventListener("mousedown", function(paint){
-     console.log(hoverOverCanvas);     
-     if (hoverOverCanvas == "true"){
-
-
-          // let mouseX = paint.clientX;
-          // let mouseY = paint.clientY;
-
-     // const paintCanvasPos = paintCanvas.getBoundingClientRect(); 
-     // const mouseX = document.clientX - paintCanvasPos.left;
-     // const mouseY = document.clientY - paintCanvasPos.top;
-
-                  const mouseX = findMouseX(paintCanvas, paint);
-                  const mouseY = findMouseY(paintCanvas, paint);
-
-          // findMouseXY(paintCanvas, paint);
-            console.log('Xval= testung ' + mouseX + ' Yval= ' + mouseY);
-          ctx.fillRect(mouseX,mouseY,brushSize,brushSize);
-     };
+paintCanvas.addEventListener("mousemove", function(evt){
+    findMouseX(paintCanvas, evt);
 });
 
+paintCanvas.addEventListener("mousemove", function(evt){
+    findMouseY(paintCanvas, evt)
+});
+
+    // const mouseX = findMouseX(paintCanvas, paint);
+    // const mouseY = findMouseY(paintCanvas, paint);
+
+function paint(){
+    //  console.log(hoverOverCanvas);     
+     if (hoverOverCanvas == "true"){
+
+                  
+
+          // findMouseXY(paintCanvas, paint);
+            console.log('WORKING!! Xval= ' + mouseX + ' Yval= ' + mouseY);
+          ctx.fillRect(mouseX,mouseY,brushSize,brushSize);
+     };
+};
+
+
+setInterval(() => {
+    
+    paint();
+
+}, 1000);
 
 
