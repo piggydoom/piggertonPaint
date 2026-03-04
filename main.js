@@ -87,7 +87,7 @@ const paintCanvasPos = paintCanvas.getBoundingClientRect();
 function findMouseY(paintCanvas, evt){
 const paintCanvasPos = paintCanvas.getBoundingClientRect(); 
     mouseY = evt.clientY - paintCanvasPos.top;
-        console.log('Xval= ' + mouseX + ' Yval= ' + mouseY);
+        // console.log('Xval= ' + mouseX + ' Yval= ' + mouseY);
     {return mouseY};    
 
 };
@@ -110,16 +110,20 @@ function paint(){
                   
 
           // findMouseXY(paintCanvas, paint);
-            console.log('WORKING!! Xval= ' + mouseX + ' Yval= ' + mouseY);
+            // console.log('WORKING!! Xval= ' + mouseX + ' Yval= ' + mouseY);
           ctx.fillRect(mouseX,mouseY,brushSize,brushSize);
      };
 };
 
 
-setInterval(() => {
+// setInterval(() => {
     
+//     paint();
+
+// }, 1);
+
+paintCanvas.addEventListener("mousemove", function(evt){
+    console.log("MOUSEMOVE")
     paint();
-
-}, 1);
-
+})
 
