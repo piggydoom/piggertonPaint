@@ -18,17 +18,7 @@ var mouseX;
 var mouseY;
 var hoverOverCanvasW;
 
-// //mouseX
-// paintCanvas.addEventListener('mousemove', function(event) {
-//   let mouseX = event.pageX;
-//   console.log('Mouse X position (document):', mouseX);
-// });
-
-// //mouseY
-// paintCanvas.addEventListener('mousemove', function(event) {
-//   let mouseY = event.pageY;
-//   console.log('Mouse Y position (document):', mouseY);
-// });
+//COLOUR PICKER CODE
 
 function openColourPicker(){
  console.log("open");
@@ -71,8 +61,13 @@ RGB2.addEventListener('input', colourSelWindowChange);
 RGB3.addEventListener('input', colourSelWindowChange);
 
 
+//PAINT FUNCTION =>
+
+
 paintCanvas.addEventListener("mouseenter", function(){
      hoverOverCanvas = "true";
+     mouseXbeginPoint = mouseX;
+     mouseYbeginPoint = mouseY;
     //  console.log("over");
 });
 
@@ -96,19 +91,6 @@ const paintCanvasPos = paintCanvas.getBoundingClientRect();
     {return mouseY};    
 };
 
-//begin points
-// function findMouseXbeginPoint(paintCanvas, evt){
-// const paintCanvasPos = paintCanvas.getBoundingClientRect(); 
-//     mouseXbeginPoint = evt.clientX - paintCanvasPos.left;
-//     {return mouseXbeginPoint};
-// };
-
-// function findMouseYbeginPoint(paintCanvas, evt){
-// const paintCanvasPos = paintCanvas.getBoundingClientRect(); 
-//     mouseYbeginPoint = evt.clientY - paintCanvasPos.top;
-//     {return mouseYbeginPoint};    
-// };
-
 paintCanvas.addEventListener("mousemove", function(evt){
     findMouseX(paintCanvas, evt);
     });
@@ -126,7 +108,7 @@ function paint(){
         // console.log("mouseX= " + mouseX + " | mouse Y= " + mouseY);
         // console.log("mouseXbeginPoint= " + mouseXbeginPoint + " | mouse Y begin point= " + mouseYbeginPoint);
           
-        ctx.lineWidth = 10;
+        ctx.lineWidth = brushSize;
         ctx.beginPath();
         ctx.moveTo(mouseX, mouseY);
         ctx.lineTo(mouseXbeginPoint, mouseYbeginPoint);
@@ -150,15 +132,4 @@ paintCanvas.addEventListener("mousemove", function(){
     // console.log("MOUSEMOVE")
     paint();
 });
-
-document.addEventListener('keydown', (event) => {
-    if (event.code === 'Space') {
-        console.log('Spacebar pressed!');
-        
-        console.log("mouseX= " + mouseX + " | mouse Y= " + mouseY);
-        console.log("mouseXbeginPoint= " + mouseXbeginPoint + " | mouse Y begin point= " + mouseYbeginPoint);
-
-    }
-});
-
 
