@@ -5,14 +5,19 @@ const RGB2 = document.getElementById('RGB2');
 const RGB3 = document.getElementById('RGB3');
 const paintCanvas = document.getElementById('paintCanvas')
 const ctx = paintCanvas.getContext('2d');    
+
 let R = RGB1.value;
 let G = RGB2.value;
 let B = RGB3.value;
 let colourSelDisplay = "none";
-var hoverOverCanvasW;
-let brushSize = "10"
+let brushSize = "10";
+let mouseXbeginPoint = "50";
+let mouseYbeginPoint = "50";
+
 var mouseX;
 var mouseY;
+var hoverOverCanvasW;
+
 // //mouseX
 // paintCanvas.addEventListener('mousemove', function(event) {
 //   let mouseX = event.pageX;
@@ -68,25 +73,22 @@ RGB3.addEventListener('input', colourSelWindowChange);
 
 paintCanvas.addEventListener("mouseenter", function(){
      hoverOverCanvas = "true";
-     console.log("over");
+    //  console.log("over");
 });
 
 paintCanvas.addEventListener("mouseleave", function(){
-     console.log("not over")
+    //  console.log("not over")
      hoverOverCanvas = "false";
 });
 
+//base mouse coords
 function findMouseX(paintCanvas, evt){
 const paintCanvasPos = paintCanvas.getBoundingClientRect(); 
     mouseX = evt.clientX - paintCanvasPos.left;
     {return mouseX};
 };
 
-function findMouseXbeginPoint(paintCanvas, evt){
-const paintCanvasPos = paintCanvas.getBoundingClientRect(); 
-    mouseXbeginPoint = evt.clientX - paintCanvasPos.left;
-    {return mouseXbeginPoint};
-};
+
 
 function findMouseY(paintCanvas, evt){
 const paintCanvasPos = paintCanvas.getBoundingClientRect(); 
@@ -94,15 +96,22 @@ const paintCanvasPos = paintCanvas.getBoundingClientRect();
     {return mouseY};    
 };
 
-function findMouseYbeginPoint(paintCanvas, evt){
-const paintCanvasPos = paintCanvas.getBoundingClientRect(); 
-    mouseYbeginPoint = evt.clientY - paintCanvasPos.top;
-    {return mouseYbeginPoint};    
-};
+//begin points
+// function findMouseXbeginPoint(paintCanvas, evt){
+// const paintCanvasPos = paintCanvas.getBoundingClientRect(); 
+//     mouseXbeginPoint = evt.clientX - paintCanvasPos.left;
+//     {return mouseXbeginPoint};
+// };
+
+// function findMouseYbeginPoint(paintCanvas, evt){
+// const paintCanvasPos = paintCanvas.getBoundingClientRect(); 
+//     mouseYbeginPoint = evt.clientY - paintCanvasPos.top;
+//     {return mouseYbeginPoint};    
+// };
 
 paintCanvas.addEventListener("mousemove", function(evt){
     findMouseX(paintCanvas, evt);
-});
+    });
 
 paintCanvas.addEventListener("mousemove", function(evt){
     findMouseY(paintCanvas, evt)
@@ -112,21 +121,18 @@ paintCanvas.addEventListener("mousemove", function(evt){
     // const mouseY = findMouseY(paintCanvas, paint);
 
 function paint(){
-    //  console.log(hoverOverCanvas);     
      if (hoverOverCanvas == "true"){
 
-                  
-
-          // findMouseXY(paintCanvas, paint);
-            // console.log('WORKING!! Xval= ' + mouseX + ' Yval= ' + mouseY);
-
-        //   ctx.fillRect(mouseX,mouseY,brushSize,brushSize);
+        // console.log("mouseX= " + mouseX + " | mouse Y= " + mouseY);
+        // console.log("mouseXbeginPoint= " + mouseXbeginPoint + " | mouse Y begin point= " + mouseYbeginPoint);
           
+        ctx.lineWidth = 10;
         ctx.beginPath();
-
         ctx.moveTo(mouseX, mouseY);
-        ctx.lineTo(50, 50);
+        ctx.lineTo(mouseXbeginPoint, mouseYbeginPoint);
         ctx.stroke();
+        mouseXbeginPoint = mouseX;
+        mouseYbeginPoint = mouseY;
 
 
 
@@ -140,8 +146,19 @@ function paint(){
 
 // }, 1);
 
-paintCanvas.addEventListener("mousemove", function(evt){
-    console.log("MOUSEMOVE")
+paintCanvas.addEventListener("mousemove", function(){
+    // console.log("MOUSEMOVE")
     paint();
-})
+});
+
+document.addEventListener('keydown', (event) => {
+    if (event.code === 'Space') {
+        console.log('Spacebar pressed!');
+        
+        console.log("mouseX= " + mouseX + " | mouse Y= " + mouseY);
+        console.log("mouseXbeginPoint= " + mouseXbeginPoint + " | mouse Y begin point= " + mouseYbeginPoint);
+
+    }
+});
+
 
