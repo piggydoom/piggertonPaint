@@ -1,41 +1,41 @@
 @font-face {
-            font-family: calmSerifs;
-            src: url(assets/CalmSerif.otf);
-        }
+    font-family: calmSerifs;
+    src: url(assets/CalmSerif.otf);
+}
 
-     @font-face {
-            font-family: boldSerifs;
-            src: url(assets/boldSerifs.otf);
-        }
+@font-face {
+    font-family: boldSerifs;
+    src: url(assets/boldSerifs.otf);
+}
 
-body{ 
+body {
     background-color: antiquewhite;
 }
 
 
 
 
-header{
+header {
     background-color: azure;
     padding: 30px;
     border-radius: 30px;
     position: relative;
 }
 
-.bStyle1{
-background-color: rgb(217, 236, 236); 
-border-color: transparent;
-border-radius: 30px;
-margin: 4px;
+.bStyle1 {
+    background-color: rgb(217, 236, 236);
+    border-color: transparent;
+    border-radius: 30px;
+    margin: 4px;
 }
 
-#screen{
+#screen {
     position: absolute;
     z-index: 1;
-    
+
 }
 
-#paintCanvas{
+#paintCanvas {
     align-self: center;
     display: block;
     margin: auto;
@@ -47,24 +47,30 @@ margin: 4px;
     margin-top: 20px;
 }
 
-#colourSel{
+#colourSel {
     border-radius: 30px;
     display: none;
-    position:absolute;
+    position: absolute;
     z-index: 1;
-    width:50px;
-    height:50px;
+    width: 50px;
+    height: 50px;
     background-color: rgb(255, 255, 255);
 }
 
+.RGBinputs {
+    display: none;
+}
 
+#thicknessVal{
+    display: none;
+}
 
-.RGBinputs{
+.inputFieldStyle1{
     display: none;
     border-width: 3px;
     border-radius: 3px;
     width: 45px;
     border-color: black;
-    border-style:ridge;
-    background-color: rgb(223, 248, 248);  
-};
+    border-style: ridge;
+    background-color: rgb(223, 248, 248);
+}

@@ -1,5 +1,7 @@
 const colourChange = document.getElementById("colourWheel");
 const colourSelWindow = document.getElementById("colourSel");
+const thicknessChange = document.getElementById("brushSize");
+const thicknessSlider = document.getElementById("thicknessVal");
 const RGB1 = document.getElementById('RGB1');
 const RGB2 = document.getElementById('RGB2');
 const RGB3 = document.getElementById('RGB3');
@@ -7,45 +9,65 @@ const RGB3 = document.getElementById('RGB3');
 let R = RGB1.value;
 let G = RGB2.value;
 let B = RGB3.value;
+let thickness = thicknessSlider.value;
 let colourSelDisplay = "none";
+let thicknessSelDisplay = "none";
 
 
-function openColourPicker(){
- console.log("open");
- openColourSel();
+function openColourPicker() {
+     console.log("open");
+     openColourSel();
 };
 
-function changeStateColourPicker(){
-if(colourSelDisplay === "none"){
-     colourSelWindow.style.display = "inline";
-     console.log("changeState init, determined to be none and attempted to show.");
-     RGB1.style.display = "inline";
-     RGB2.style.display = "inline";
-     RGB3.style.display = "inline";
-     colourSelDisplay = "inline";
-} else{
-colourSelWindow.style.display = "none";
-console.log("changeState init, determined to be show and attempted to hide.");
-colourSelDisplay = "none";
-RGB1.style.display = "none";
-RGB2.style.display = "none";
-RGB3.style.display = "none";
-};
+function changeStateColourPicker() {
+     if (colourSelDisplay === "none") {
+          thicknessSlider.style.display = "none";
+          colourSelWindow.style.display = "inline";
+          RGB1.style.display = "inline";
+          RGB2.style.display = "inline";
+          RGB3.style.display = "inline";
+          colourSelDisplay = "inline";
+     } else {
+          colourSelWindow.style.display = "none";
+          colourSelDisplay = "none";
+          RGB1.style.display = "none";
+          RGB2.style.display = "none";
+          RGB3.style.display = "none";
+     }
 };
 
-function colourSelWindowChange(){
-     console.log("RGB val change detected")
-     
-     let R = RGB1.value;
-     let G = RGB2.value;
-     let B = RGB3.value;
+function changeStateThicknessSlider(){
+     console.log("test");
+     if(thicknessSelDisplay === "none") {
+          RGB1.style.display = "none";
+          RGB2.style.display = "none";
+          RGB3.style.display = "none";
+          colourSelWindow.style.display = "none";
+          thicknessSlider.style.display = "inline";
+          thicknessSelDisplay = "inline";
+     } else {
+          thicknessSelWindow.style.display = "none";
+          thicknessSelDisplay = "none"
+     };
+};
 
+function colourSelWindowChange() {
+     R = RGB1.value;
+     G = RGB2.value;
+     B = RGB3.value;
+     ctx.strokeStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
      colourSelWindow.style.backgroundColor = 'rgb(' + R + ',' + G + ',' + B + ')';
-     console.log("R" + R + " G" + G + " B" + B);
+     // console.log("R" + R + " G" + G + " B" + B);
 };
 
 colourChange.addEventListener("click", changeStateColourPicker);
+thicknessChange.addEventListener("click", changeStateThicknessSlider);
+
 
 RGB1.addEventListener('input', colourSelWindowChange);
 RGB2.addEventListener('input', colourSelWindowChange);
 RGB3.addEventListener('input', colourSelWindowChange);
+thicknessSlider.addEventListener('input', function(){
+Thickness = thicknessSlider.value;
+ctx.lineWidth = Thickness;
+});

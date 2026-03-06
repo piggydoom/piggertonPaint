@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="styles.css">
+
+<head>
+<title>piggerBoom</title>
+</head>
+
+
+<body>
+<header>
+    piggerton paint very good simulator
+    <br>
+
+    <button class="bStyle1" id="colourWheel"><img src="assets/colourWheel.png" style="width: 20px;"></button>
+    <button class="bStyle1" id="brushSize"><img src="assets/thickness.png" style="width: 20px;"></button>
+    
+    <br>
+    <input class="RGBinputs inputFieldStyle1" id="RGB1" placeholder="RGB1" type="number" value="">
+    <input class="RGBinputs inputFieldStyle1" id="RGB2" placeholder="RGB2" type="number" value="">
+    <input class="RGBinputs inputFieldStyle1" id="RGB3" placeholder="RGB3" type="number" value="">
+    <div id="colourSel"></div>
+
+    <input class="inputFieldStyle1", id="thicknessVal" min="1" max="50" type="number">
+
+</header>
+
+
+
+<canvas id="paintCanvas" height="400px" width="1080px"></canvas>
+
+
+
+<script src="main.js"></script>
+<script src="buttonsAndControls.js"></script>
+
+</body>
