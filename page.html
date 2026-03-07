@@ -9,18 +9,22 @@
 <body>
 <header>
     piggerton paint very good simulator
+    
+    <button class="bStyle2" id="resetCanvasButton">CLEAR CANVAS</button>
     <br>
 
     <button class="bStyle1" id="colourWheel"><img src="assets/colourWheel.png" style="width: 20px;"></button>
     <button class="bStyle1" id="brushSize"><img src="assets/thickness.png" style="width: 20px;"></button>
     
     <br>
-    <input class="RGBinputs inputFieldStyle1" id="RGB1" placeholder="RGB1" type="number" value="">
-    <input class="RGBinputs inputFieldStyle1" id="RGB2" placeholder="RGB2" type="number" value="">
-    <input class="RGBinputs inputFieldStyle1" id="RGB3" placeholder="RGB3" type="number" value="">
+    <div colourSelectionElements>
+    <input class="RGBinputs inputFieldStyle1" id="RGB1" placeholder="RGB1" type="number" value="0">
+    <input class="RGBinputs inputFieldStyle1" id="RGB2" placeholder="RGB2" type="number" value="0">
+    <input class="RGBinputs inputFieldStyle1" id="RGB3" placeholder="RGB3" type="number" value="0">
     <div id="colourSel"></div>
+    </div>
 
-    <input class="inputFieldStyle1", id="thicknessVal" min="1" max="50" type="number">
+    <input class="inputFieldStyle1" id="thicknessVal" min="1" max="50" type="number">
 
 </header>
 

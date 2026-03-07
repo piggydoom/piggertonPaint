@@ -14,6 +14,16 @@ let colourSelDisplay = "none";
 let thicknessSelDisplay = "none";
 
 
+function clearInputField(fieldID, setTo){
+document.getElementById(fieldID).value = setTo;
+};
+
+window.onload = clearInputField("RGB1", 0);
+window.onload = clearInputField("RGB2", 0);
+window.onload = clearInputField("RGB3", 0);
+
+
+//COLOUR SEL
 function openColourPicker() {
      console.log("open");
      openColourSel();
@@ -36,20 +46,6 @@ function changeStateColourPicker() {
      }
 };
 
-function changeStateThicknessSlider(){
-     console.log("test");
-     if(thicknessSelDisplay === "none") {
-          RGB1.style.display = "none";
-          RGB2.style.display = "none";
-          RGB3.style.display = "none";
-          colourSelWindow.style.display = "none";
-          thicknessSlider.style.display = "inline";
-          thicknessSelDisplay = "inline";
-     } else {
-          thicknessSelWindow.style.display = "none";
-          thicknessSelDisplay = "none"
-     };
-};
 
 function colourSelWindowChange() {
      R = RGB1.value;
@@ -60,14 +56,31 @@ function colourSelWindowChange() {
      // console.log("R" + R + " G" + G + " B" + B);
 };
 
+//PAINT THICKNESS
+function changeStateThicknessSlider() {
+     console.log("test");
+     if (thicknessSelDisplay === "none") {
+          RGB1.style.display = "none";
+          RGB2.style.display = "none";
+          RGB3.style.display = "none";
+          colourSelWindow.style.display = "none";
+          thicknessSlider.style.display = "inline";
+          thicknessSelDisplay = "inline";
+     } else {
+          thicknessSlider.style.display = "none";
+          thicknessSelDisplay = "none"
+     };
+};
+
+
+
+//eventlisteners
 colourChange.addEventListener("click", changeStateColourPicker);
 thicknessChange.addEventListener("click", changeStateThicknessSlider);
-
-
 RGB1.addEventListener('input', colourSelWindowChange);
 RGB2.addEventListener('input', colourSelWindowChange);
 RGB3.addEventListener('input', colourSelWindowChange);
-thicknessSlider.addEventListener('input', function(){
-Thickness = thicknessSlider.value;
-ctx.lineWidth = Thickness;
+thicknessSlider.addEventListener('input', function () {
+     Thickness = thicknessSlider.value;
+     ctx.lineWidth = Thickness;
 });
