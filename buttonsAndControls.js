@@ -32,6 +32,7 @@ function openColourPicker() {
 
 function changeStateColourPicker() {
      if (colourSelDisplay === "none") {
+          thicknessSelDisplay = "none";
           thicknessSlider.style.display = "none";
           colourSelWindow.style.display = "inline";
           RGB1.style.display = "inline";
@@ -59,8 +60,8 @@ function colourSelWindowChange() {
 
 //PAINT THICKNESS
 function changeStateThicknessSlider() {
-     console.log("test");
      if (thicknessSelDisplay === "none") {
+          colourSelDisplay - "none";
           RGB1.style.display = "none";
           RGB2.style.display = "none";
           RGB3.style.display = "none";

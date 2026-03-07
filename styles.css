@@ -3,6 +3,11 @@
     src: url(assets/cleanFont.otf);
 }
 
+@font-face {
+    font-family: title;
+    src: url(assets/titleFont.otf);
+}
+
 body {
     background-color: antiquewhite;
 }
@@ -12,6 +17,13 @@ header {
     padding: 30px;
     border-radius: 30px;
     position: relative;
+}
+
+h1{
+    font-family: title;
+    font-weight: bold;
+    font-size: 40px;
+    margin: 0%;
 }
 
 .bStyle1 {
@@ -84,7 +96,6 @@ header {
 
 .inputFieldStyle1{
     color: rgb(14, 14, 14);
-    display: none;
     border-width: 3px;
     border-radius: 4px;
     width: 45px;
