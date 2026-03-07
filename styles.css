@@ -31,6 +31,19 @@ header {
     font-family: clean;
     font-size: medium;
     color: rgb(14, 14, 14);
+    transition: 500ms;
+}
+
+.bStyle2:hover{
+    transition: 500ms; 
+    transform: scale(94%);
+    filter: brightness(95%);
+}
+
+.bStyle2:active{
+    transition: 50ms;
+    transform: scale(85%);
+    filter: brightness(85%);
 }
 
 #screen {

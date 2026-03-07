@@ -5,6 +5,7 @@ const thicknessSlider = document.getElementById("thicknessVal");
 const RGB1 = document.getElementById('RGB1');
 const RGB2 = document.getElementById('RGB2');
 const RGB3 = document.getElementById('RGB3');
+const clearCanvasButton = document.getElementById('resetCanvasButton');
 
 let R = RGB1.value;
 let G = RGB2.value;
@@ -76,11 +77,16 @@ function changeStateThicknessSlider() {
 
 //eventlisteners
 colourChange.addEventListener("click", changeStateColourPicker);
-thicknessChange.addEventListener("click", changeStateThicknessSlider);
 RGB1.addEventListener('input', colourSelWindowChange);
 RGB2.addEventListener('input', colourSelWindowChange);
 RGB3.addEventListener('input', colourSelWindowChange);
+
+thicknessChange.addEventListener("click", changeStateThicknessSlider);
 thicknessSlider.addEventListener('input', function () {
-     Thickness = thicknessSlider.value;
-     ctx.lineWidth = Thickness;
+     thickness = thicknessSlider.value;
+     ctx.lineWidth = thickness;
+});
+
+clearCanvasButton.addEventListener('click', function(){
+ctx.clearRect(0, 0, paintCanvas.width, paintCanvas.height);
 });
