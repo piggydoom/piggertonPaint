@@ -3,24 +3,17 @@ const ctx = paintCanvas.getContext('2d');
 
 let mouseXbeginPoint = "50";
 let mouseYbeginPoint = "50";
+let paintMode = "default";
 
 var mouseX;
 var mouseY;
-var hoverOverCanvasW;
 var mouseHeldDown;
 
 //PAINT FUNCTION =>
 
 paintCanvas.addEventListener("mouseenter", function () {
-    hoverOverCanvas = "true";
     mouseXbeginPoint = mouseX;
     mouseYbeginPoint = mouseY;
-    //  console.log("over");
-});
-
-paintCanvas.addEventListener("mouseleave", function () {
-    //  console.log("not over")
-    hoverOverCanvas = "false";
 });
 
 //base mouse coords
@@ -41,11 +34,21 @@ paintCanvas.addEventListener("mousemove", function (evt) {
 });
 
 paintCanvas.addEventListener("mousemove", function (evt) {
-    findMouseY(paintCanvas, evt)
+    findMouseY(paintCanvas, evt);
 });
 
+//paint mode change
+function changePaintMode(mode) {
+    console.log(paintMode);
+    paintMode = mode;
+    console.log(paintMode);
+};
+
+//MODES
 function paint() {
-    if (hoverOverCanvas == "true" && mouseHeldDown == "true") {
+
+    //DEFAULT MODE
+    if (mouseHeldDown == "true" && paintMode == "default") {
         ctx.beginPath();
         ctx.moveTo(mouseX, mouseY);
         ctx.lineTo(mouseXbeginPoint, mouseYbeginPoint);
@@ -55,13 +58,36 @@ function paint() {
         mouseXbeginPoint = mouseX;
         mouseYbeginPoint = mouseY;
     }
+
+    //LINE MODE
+    else if (paintMode == "line") {
+
+        if (mouseHeldDown == "true") {
+            mouseXbeginPoint = mouseX;
+            mouseYbeginPoint = mouseY;
+            ctx.beginPath();
+            ctx.moveTo(mouseXbeginPoint, mouseYbeginPoint);
+            
+            // console.log(mouseX);
+        } else{
+            ctx.lineTo(mouseX, mouseY);
+            ctx.stroke();
+            ctx.moveTo(mouseXbeginPoint, mouseYbeginPoint);
+        }
+    }
 };
 
 
 document.addEventListener("mousedown", function () {
     mouseHeldDown = "true";
-    mouseXbeginPoint = mouseX;
-    mouseYbeginPoint = mouseY;
+
+    if (paintMode == "default") {
+        mouseXbeginPoint = mouseX;
+        mouseYbeginPoint = mouseY;
+    }
+
+
+
 });
 
 document.addEventListener('mouseup', function () {
@@ -69,6 +95,13 @@ document.addEventListener('mouseup', function () {
 });
 
 paintCanvas.addEventListener("mousemove", function () {
+    // console.log(mouseHeldDown)
     paint();
-});
+
+
+           });
+
+//  if(mouseHeldDown == "true" ){  
+//         console.log(mouseX + "working");
+//     };
 

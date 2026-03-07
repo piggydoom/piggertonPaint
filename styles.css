@@ -58,6 +58,13 @@ h1{
     filter: brightness(85%);
 }
 
+.bStyle3 {
+    background-color: rgb(183, 205, 205);
+    border-color:rgb(129, 150, 150);
+    border-radius: 30px;
+    margin: 4px;
+}
+
 #screen {
     position: absolute;
     z-index: 1;
