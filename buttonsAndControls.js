@@ -7,6 +7,7 @@ const RGB2 = document.getElementById('RGB2');
 const RGB3 = document.getElementById('RGB3');
 const clearCanvasButton = document.getElementById('resetCanvasButton');
 const lineDraw = document.getElementById('lineDraw');
+const baseDraw = document.getElementById('baseDraw');
 
 let R = RGB1.value;
 let G = RGB2.value;
@@ -93,3 +94,4 @@ ctx.clearRect(0, 0, paintCanvas.width, paintCanvas.height);
 });
 
 lineDraw.addEventListener('click', function(){changePaintMode("line")});
+baseDraw.addEventListener('click', function(){changePaintMode("base")});

@@ -3,7 +3,8 @@ const ctx = paintCanvas.getContext('2d');
 
 let mouseXbeginPoint = "50";
 let mouseYbeginPoint = "50";
-let paintMode = "default";
+let paintMode = "base";
+let firstPointDefined = false;
 
 var mouseX;
 var mouseY;
@@ -44,11 +45,23 @@ function changePaintMode(mode) {
     console.log(paintMode);
 };
 
+
+//PREVIEW DISP !!!WORK ON LATER
+// function drawPreviewLine(){
+//         if (firstPointDefined = true) {
+//             lastPreviewLineX = mouseX;
+//             lastPreviewLineY = mouseY
+//             ctx.lineTo(mouseX, mouseY);
+//             ctx.stroke();
+//             ctx.moveTo(mouseXbeginPoint, mouseYbeginPoint);
+//         } 
+//     };
+
 //MODES
 function paint() {
 
     //DEFAULT MODE
-    if (mouseHeldDown == "true" && paintMode == "default") {
+    if (mouseHeldDown == "true" && paintMode == "base") {
         ctx.beginPath();
         ctx.moveTo(mouseX, mouseY);
         ctx.lineTo(mouseXbeginPoint, mouseYbeginPoint);
@@ -60,21 +73,10 @@ function paint() {
     }
 
     //LINE MODE
-    else if (paintMode == "line") {
+    // else if (paintMode == "line") {
 
-        if (mouseHeldDown == "true") {
-            mouseXbeginPoint = mouseX;
-            mouseYbeginPoint = mouseY;
-            ctx.beginPath();
-            ctx.moveTo(mouseXbeginPoint, mouseYbeginPoint);
-            
-            // console.log(mouseX);
-        } else{
-            ctx.lineTo(mouseX, mouseY);
-            ctx.stroke();
-            ctx.moveTo(mouseXbeginPoint, mouseYbeginPoint);
-        }
-    }
+        
+    // }
 };
 
 
@@ -95,13 +97,32 @@ document.addEventListener('mouseup', function () {
 });
 
 paintCanvas.addEventListener("mousemove", function () {
-    // console.log(mouseHeldDown)
     paint();
+    // drawPreviewLine();
 
 
-           });
+});
 
-//  if(mouseHeldDown == "true" ){  
-//         console.log(mouseX + "working");
-//     };
 
+//line mode point #1
+paintCanvas.addEventListener('mousedown', function () {
+    if (paintMode == "line" && firstPointDefined != true) {
+
+        mouseXbeginPoint = mouseX;
+        mouseYbeginPoint = mouseY;
+        console.log("point1 defined");
+        ctx.beginPath();
+        ctx.moveTo(mouseXbeginPoint, mouseYbeginPoint);
+        firstPointDefined = true;
+    } else if(paintMode == "line" && firstPointDefined == true){
+
+            ctx.lineTo(mouseX, mouseY);
+            ctx.stroke();
+            ctx.moveTo(mouseXbeginPoint, mouseYbeginPoint);
+            firstPointDefined = false;
+
+
+
+    }
+}
+);

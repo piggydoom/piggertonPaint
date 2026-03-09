@@ -33,6 +33,12 @@ h1{
     margin: 4px;
 }
 
+.bStyle1:active{
+    transition: 25ms;
+    transform: scale(97%);
+    filter: brightness(90%);
+}
+
 .bStyle2 {
     border-style:solid;
     background-color: rgb(217, 236, 236);
