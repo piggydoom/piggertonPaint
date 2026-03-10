@@ -59,6 +59,7 @@ function colourSelWindowChange() {
      G = RGB2.value;
      B = RGB3.value;
      ctx.strokeStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
+          ctxOver.strokeStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
      colourSelWindow.style.backgroundColor = 'rgb(' + R + ',' + G + ',' + B + ')';
      // console.log("R" + R + " G" + G + " B" + B);
 };

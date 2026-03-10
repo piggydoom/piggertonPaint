@@ -60,17 +60,28 @@ function changePaintMode(mode) {
 function drawPreviewLine(){
         if (firstPointDefined == true) {
 
-            // ctxOver.strokeStyle = 'rgba(0, 0, 0, 0)'; 
-            // ctx.lineTo(lastPreviewLineX, lastPreviewLineY);
-            // ctx.moveTo(mouseXbeginPoint, mouseXbeginPoint);
-            // ctx.strokeStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
+            ctxOver.beginPath();
+            ctxOver.moveTo(mouseXbeginPoint, mouseYbeginPoint);
+            
+            if(lastPreviewLineX != undefined){
+                ctxOver.strokeStyle = 'rgb(255, 255, 255)';
+                ctxOver.lineWidth = thickness + 50;
+                ctxOver.lineTo(lastPreviewLineX, lastPreviewLineY);
+                ctxOver.stroke();
+                ctxOver.closePath();
 
-            ctxOver.moveTo(mouseXbeginPoint, mouseXbeginPoint);
+                ctxOver.beginPath();
+                ctx.lineWidth = thickness;
+                ctxOver.moveTo(mouseXbeginPoint, mouseYbeginPoint);
+                ctxOver.strokeStyle = 'rgba(' + R + ',' + G + ',' + B + ',' + 255 + ')';
+            };
+
             lastPreviewLineX = mouseX;
-            lastPreviewLineY = mouseY
+            lastPreviewLineY = mouseY;
+         
             ctxOver.lineTo(mouseX, mouseY);
             ctxOver.stroke();
-            ctxOver.moveTo(mouseXbeginPoint, mouseYbeginPoint);
+            ctxOver.closePath();
         } 
     };
 
@@ -117,6 +128,7 @@ document.addEventListener('mouseup', function () {
 canvasOverlay.addEventListener("mousemove", function() {
     paint();
       console.log(firstPointDefined);
+
     if(paintMode == "line"){ 
     drawPreviewLine();    
 }
@@ -146,3 +158,12 @@ canvasOverlay.addEventListener('mousedown', function () {
     }
 }
 );
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === ' ') {
+        event.preventDefault(); // Prevent default action (e.g., page scrolling)
+        console.log("mouse coords= "+ mouseX, mouseY);
+        console.log("lastPreviewLine coords= " + lastPreviewLineX, lastPreviewLineY);
+
+    }
+});
