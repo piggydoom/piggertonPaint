@@ -1,7 +1,8 @@
 const paintCanvas = document.getElementById('paintCanvas');
-const GUIcanvas = document.getElementById('GUIdisplayCanvas');
+const canvasOverlay = document.getElementById('GUIdisplayCanvas');
+const canvasWrapper = document.getElementsByClassName('canvasWrapper');
 const ctx = paintCanvas.getContext('2d');
-const ctxOver = GUIcanvas.getContext('2d');
+const ctxOver = canvasOverlay.getContext('2d');
 
 let mouseXbeginPoint = "50";
 let mouseYbeginPoint = "50";
@@ -11,12 +12,19 @@ let firstPointDefined = false;
 var mouseX;
 var mouseY;
 var mouseHeldDown;
+var lastPreviewLineX;
+var lastPreviewLineY;
 
 //PAINT FUNCTION =>
 
-paintCanvas.addEventListener("mouseenter", function () {
+canvasOverlay.addEventListener("mouseenter", function () {
+    hoverOverCanvas = true;
     mouseXbeginPoint = mouseX;
     mouseYbeginPoint = mouseY;
+});
+
+canvasOverlay.addEventListener('mouseleave', function(){
+    hoverOverCanvas = false;
 });
 
 //base mouse coords
@@ -32,32 +40,39 @@ function findMouseY(paintCanvas, evt) {
     { return mouseY };
 };
 
-paintCanvas.addEventListener("mousemove", function (evt) {
+canvasOverlay.addEventListener("mousemove", function (evt) {
     findMouseX(paintCanvas, evt);
 });
 
-paintCanvas.addEventListener("mousemove", function (evt) {
+canvasOverlay.addEventListener("mousemove", function (evt) {
     findMouseY(paintCanvas, evt);
 });
 
 //paint mode change
 function changePaintMode(mode) {
-    console.log(paintMode);
+    // console.log(paintMode);
     paintMode = mode;
+    console.log(firstPointDefined);
     console.log(paintMode);
 };
 
+//PREVIEW DISP
+function drawPreviewLine(){
+        if (firstPointDefined == true) {
 
-//PREVIEW DISP !!!WORK ON LATER
-// function drawPreviewLine(){
-//         if (firstPointDefined = true) {
-//             lastPreviewLineX = mouseX;
-//             lastPreviewLineY = mouseY
-//             ctx.lineTo(mouseX, mouseY);
-//             ctx.stroke();
-//             ctx.moveTo(mouseXbeginPoint, mouseYbeginPoint);
-//         } 
-//     };
+            // ctxOver.strokeStyle = 'rgba(0, 0, 0, 0)'; 
+            // ctx.lineTo(lastPreviewLineX, lastPreviewLineY);
+            // ctx.moveTo(mouseXbeginPoint, mouseXbeginPoint);
+            // ctx.strokeStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
+
+            ctxOver.moveTo(mouseXbeginPoint, mouseXbeginPoint);
+            lastPreviewLineX = mouseX;
+            lastPreviewLineY = mouseY
+            ctxOver.lineTo(mouseX, mouseY);
+            ctxOver.stroke();
+            ctxOver.moveTo(mouseXbeginPoint, mouseYbeginPoint);
+        } 
+    };
 
 //MODES
 function paint() {
@@ -99,21 +114,23 @@ document.addEventListener('mouseup', function () {
 
 });
 
-paintCanvas.addEventListener("mousemove", function () {
+canvasOverlay.addEventListener("mousemove", function() {
     paint();
-    // drawPreviewLine();
-
+      console.log(firstPointDefined);
+    if(paintMode == "line"){ 
+    drawPreviewLine();    
+}
 
 });
 
 
 //line mode point #1
-paintCanvas.addEventListener('mousedown', function () {
+canvasOverlay.addEventListener('mousedown', function () {
+    
     if (paintMode == "line" && firstPointDefined != true) {
-
+        console.log("first point made");
         mouseXbeginPoint = mouseX;
         mouseYbeginPoint = mouseY;
-        console.log("point1 defined");
         ctx.beginPath();
         ctx.moveTo(mouseXbeginPoint, mouseYbeginPoint);
         firstPointDefined = true;

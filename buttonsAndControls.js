@@ -90,6 +90,7 @@ thicknessChange.addEventListener("click", changeStateThicknessSlider);
 thicknessSlider.addEventListener('input', function () {
      thickness = thicknessSlider.value;
      ctx.lineWidth = thickness;
+     ctxOver.lineWidth = thickness;
 });
 
 clearCanvasButton.addEventListener('click', function(){
