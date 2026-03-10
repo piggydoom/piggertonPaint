@@ -12,6 +12,9 @@ const baseDraw = document.getElementById('baseDraw');
 let R = RGB1.value;
 let G = RGB2.value;
 let B = RGB3.value;
+
+
+
 let thickness = thicknessSlider.value;
 let colourSelDisplay = "none";
 let thicknessSelDisplay = "none";
@@ -21,9 +24,9 @@ function clearInputField(fieldID, setTo){
 document.getElementById(fieldID).value = setTo;
 };
 
-window.onload = clearInputField("RGB1", 0);
-window.onload = clearInputField("RGB2", 0);
-window.onload = clearInputField("RGB3", 0);
+window.onload = clearInputField("RGB1", 255);
+window.onload = clearInputField("RGB2", 90);
+window.onload = clearInputField("RGB3", 90);
 
 
 //COLOUR SEL

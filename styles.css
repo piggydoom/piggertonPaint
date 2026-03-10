@@ -26,6 +26,31 @@ h1{
     margin: 0%;
 }
 
+.canvasWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 400px;
+    width: 1080;
+    margin-top: 20px;
+}
+
+
+#paintCanvas {
+    position: absolute;
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+#GUIdisplayCanvas{
+    position: absolute;
+    z-index: 2;
+}
+
 .bStyle1 {
     background-color: rgb(217, 236, 236);
     border-color: transparent;
@@ -77,17 +102,7 @@ h1{
 
 }
 
-#paintCanvas {
-    align-self: center;
-    display: block;
-    margin: auto;
-    border-style: solid;
-    border-color: black;
-    border-width: 2px;
-    background-color: white;
-    border-radius: 5px;
-    margin-top: 20px;
-}
+
 
 #colourSel {
     border-radius: 30px;

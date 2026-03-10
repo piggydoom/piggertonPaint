@@ -1,5 +1,7 @@
-const paintCanvas = document.getElementById('paintCanvas')
+const paintCanvas = document.getElementById('paintCanvas');
+const GUIcanvas = document.getElementById('GUIdisplayCanvas');
 const ctx = paintCanvas.getContext('2d');
+const ctxOver = GUIcanvas.getContext('2d');
 
 let mouseXbeginPoint = "50";
 let mouseYbeginPoint = "50";
@@ -83,7 +85,7 @@ function paint() {
 document.addEventListener("mousedown", function () {
     mouseHeldDown = "true";
 
-    if (paintMode == "default") {
+    if (paintMode == "base") {
         mouseXbeginPoint = mouseX;
         mouseYbeginPoint = mouseY;
     }
@@ -94,6 +96,7 @@ document.addEventListener("mousedown", function () {
 
 document.addEventListener('mouseup', function () {
     mouseHeldDown = "false";
+
 });
 
 paintCanvas.addEventListener("mousemove", function () {
