@@ -15,6 +15,9 @@ body {
 header {
     background-color: azure;
     padding: 30px;
+    border: 50px solid;
+    border-width: 4px;
+    border-color: rgb(82, 61, 56);
     border-radius: 30px;
     position: relative;
 }

@@ -2,44 +2,45 @@
 <link rel="stylesheet" href="styles.css">
 
 <head>
-<title>piggerBoom painting program</title>
+    <title>piggerBoom painting program</title>
 </head>
 
 
 <body>
-<header>
-    <h1>piggerton paint very good simulator</h1>
-    <!-- <br> -->
-    <button class="bStyle2" id="resetCanvasButton">CLEAR CANVAS</button>
+    <header>
+        <h1>piggerton paint very good simulator</h1>
+        <!-- <br> -->
+        <button class="bStyle2" id="resetCanvasButton">CLEAR CANVAS</button>
 
-    <br>
-    
-    <button class="bStyle3" id="colourWheel"><img src="assets/colourWheel.png" style="width: 20px;"></button>
-    <button class="bStyle3" id="brushSize"><img src="assets/thickness.png" style="width: 20px;"></button>
+        <br>
 
-    <button class="bStyle1" id="lineDraw" aria-pressed="false"><img src="assets/lineDraw.png" style="width: 20px;"></button>
-    <button class="bStyle1" id="baseDraw" aria-pressed="true"><img src="assets/baseDraw.png" style="width: 20px;" ></button>
-    
-    <br>
-    <div colourSelectionElements>
-    <input class="RGBinputs inputFieldStyle1" id="RGB1" placeholder="RGB1" type="number" value="0">
-    <input class="RGBinputs inputFieldStyle1" id="RGB2" placeholder="RGB2" type="number" value="0">
-    <input class="RGBinputs inputFieldStyle1" id="RGB3" placeholder="RGB3" type="number" value="0">
-    <div id="colourSel"></div>
+        <button class="bStyle3" id="colourWheel"><img src="assets/colourWheel.png" style="width: 20px;"></button>
+        <button class="bStyle3" id="brushSize"><img src="assets/thickness.png" style="width: 20px;"></button>
+
+        <button class="bStyle1" id="lineDraw" aria-pressed="false"><img src="assets/lineDraw.png"style="width: 20px;"></button>
+        <button class="bStyle1" id="baseDraw" aria-pressed="true"><img src="assets/baseDraw.png" style="width: 20px;"></button>
+        <button class="bStyle1" id="circleDraw" aria-pressed="false"><img src="assets/circleDraw.png" style="width: 20px;"></button>
+
+        <br>
+        <div colourSelectionElements>
+            <input class="RGBinputs inputFieldStyle1" id="RGB1" placeholder="RGB1" type="number" value="0">
+            <input class="RGBinputs inputFieldStyle1" id="RGB2" placeholder="RGB2" type="number" value="0">
+            <input class="RGBinputs inputFieldStyle1" id="RGB3" placeholder="RGB3" type="number" value="0">
+            <div id="colourSel"></div>
+        </div>
+
+        <input class="inputFieldStyle1" id="thicknessVal" min="1" max="50" type="number" value="15">
+
+    </header>
+
+
+    <div class="canvasWrapper">
+        <canvas id="GUIdisplayCanvas" height="400px" width="1080px"></canvas>
+        <canvas id="paintCanvas" height="400px" width="1080px"></canvas>
     </div>
 
-    <input class="inputFieldStyle1" id="thicknessVal" min="1" max="50" type="number">
 
-</header>
-
-
-<div class= "canvasWrapper">
-<canvas id="GUIdisplayCanvas" height="400px" width="1080px"></canvas>
-<canvas id="paintCanvas" height="400px" width="1080px"></canvas>
-</div>
-
-
-<script src="main.js"></script>
-<script src="buttonsAndControls.js"></script>
+    <script src="main.js"></script>
+    <script src="buttonsAndControls.js"></script>
 
 </body>

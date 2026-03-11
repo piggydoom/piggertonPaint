@@ -9,15 +9,7 @@ const clearCanvasButton = document.getElementById('resetCanvasButton');
 const lineDraw = document.getElementById('lineDraw');
 const baseDraw = document.getElementById('baseDraw');
 const bStyle1 = document.querySelectorAll(".bStyle1");
-
-bStyle1.forEach(btn => {
-  btn.addEventListener("click", () => {
-
-     bStyle1.forEach(b => b.ariaPressed = "false");
-     btn.ariaPressed = btn.ariaPressed = "true";
-     
-  });
-});
+const circleDraw = document.getElementById('circleDraw');
 
 let R = RGB1.value;
 let G = RGB2.value;
@@ -29,14 +21,17 @@ let thicknessSelDisplay = "none";
 
 
 
-function clearInputField(fieldID, setTo){
-document.getElementById(fieldID).value = setTo;
+function clearInputField(fieldID, setTo) {
+     document.getElementById(fieldID).value = setTo;
 };
 
 window.onload = clearInputField("RGB1", 255);
 window.onload = clearInputField("RGB2", 90);
 window.onload = clearInputField("RGB3", 90);
+colourSelWindowChange();
 
+window.onload = clearInputField("thicknessVal", 15);
+thicknessUpdate();
 
 //COLOUR SEL
 function openColourPicker() {
@@ -68,9 +63,17 @@ function colourSelWindowChange() {
      G = RGB2.value;
      B = RGB3.value;
      ctx.strokeStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
-          ctxOver.strokeStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
+     ctxOver.strokeStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
      colourSelWindow.style.backgroundColor = 'rgb(' + R + ',' + G + ',' + B + ')';
      // console.log("R" + R + " G" + G + " B" + B);
+
+};
+
+     function thicknessUpdate() {
+     console.log("aloha");
+     thickness = thicknessSlider.value;
+     ctx.lineWidth = thickness;
+     ctxOver.lineWidth = thickness;
 };
 
 //PAINT THICKNESS
@@ -97,15 +100,21 @@ RGB2.addEventListener('input', colourSelWindowChange);
 RGB3.addEventListener('input', colourSelWindowChange);
 
 thicknessChange.addEventListener("click", changeStateThicknessSlider);
-thicknessSlider.addEventListener('input', function () {
-     thickness = thicknessSlider.value;
-     ctx.lineWidth = thickness;
-     ctxOver.lineWidth = thickness;
+thicknessSlider.addEventListener('input', thicknessUpdate);
+
+clearCanvasButton.addEventListener('click', function () {
+     ctx.clearRect(0, 0, paintCanvas.width, paintCanvas.height);
 });
 
-clearCanvasButton.addEventListener('click', function(){
-ctx.clearRect(0, 0, paintCanvas.width, paintCanvas.height);
-});
+lineDraw.addEventListener('click', () => { changePaintMode("line") });
+baseDraw.addEventListener('click', () => { changePaintMode("base") });
+circleDraw.addEventListener('click', () => { changePaintMode("circle") });
 
-lineDraw.addEventListener('click', function(){changePaintMode("line")});
-baseDraw.addEventListener('click', function(){changePaintMode("base")});
+bStyle1.forEach(btn => {
+     btn.addEventListener("click", () => {
+
+          bStyle1.forEach(b => b.ariaPressed = "false");
+          btn.ariaPressed = btn.ariaPressed = "true";
+
+     });
+});
