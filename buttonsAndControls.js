@@ -10,6 +10,9 @@ const lineDraw = document.getElementById('lineDraw');
 const baseDraw = document.getElementById('baseDraw');
 const bStyle1 = document.querySelectorAll(".bStyle1");
 const circleDraw = document.getElementById('circleDraw');
+const rectDraw = document.getElementById('rectDraw');
+const fillShape = document.getElementById('fillShapeVal');
+const fillShapeWindow = document.getElementById('fillShape');
 
 let R = RGB1.value;
 let G = RGB2.value;
@@ -18,6 +21,7 @@ let B = RGB3.value;
 let thickness = thicknessSlider.value;
 let colourSelDisplay = "none";
 let thicknessSelDisplay = "none";
+let fillShapeSelDisplay = "none";
 
 
 
@@ -40,7 +44,8 @@ function openColourPicker() {
 };
 
 function changeStateColourPicker() {
-     if (colourSelDisplay === "none") {
+     if (colourSelDisplay == "none") {
+          fillShapeWindow.style.display = "none";
           thicknessSelDisplay = "none";
           thicknessSlider.style.display = "none";
           colourSelWindow.style.display = "inline";
@@ -57,20 +62,34 @@ function changeStateColourPicker() {
      }
 };
 
+function changeStateFillCheck(){
+     if(fillShapeSelDisplay == "none"){
+          fillShapeWindow.style.display = "block";
+          colourSelDisplay = "none";
+          RGB1.style.display = "none";
+          RGB2.style.display = "none";
+          RGB3.style.display = "none";
+          colourSelWindow.style.display = "none";
+          thicknessSlider.style.display = "none";
+          thicknessSelDisplay = "none";
+
+     }
+}
+
 
 function colourSelWindowChange() {
      R = RGB1.value;
      G = RGB2.value;
      B = RGB3.value;
      ctx.strokeStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
+     ctx.fillStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
      ctxOver.strokeStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
      colourSelWindow.style.backgroundColor = 'rgb(' + R + ',' + G + ',' + B + ')';
      // console.log("R" + R + " G" + G + " B" + B);
 
 };
 
-     function thicknessUpdate() {
-     console.log("aloha");
+function thicknessUpdate() {
      thickness = thicknessSlider.value;
      ctx.lineWidth = thickness;
      ctxOver.lineWidth = thickness;
@@ -78,8 +97,9 @@ function colourSelWindowChange() {
 
 //PAINT THICKNESS
 function changeStateThicknessSlider() {
-     if (thicknessSelDisplay === "none") {
-          colourSelDisplay - "none";
+     if (thicknessSelDisplay == "none") {
+          fillShapeWindow.style.display = "none";
+          colourSelDisplay = "none";
           RGB1.style.display = "none";
           RGB2.style.display = "none";
           RGB3.style.display = "none";
@@ -88,7 +108,7 @@ function changeStateThicknessSlider() {
           thicknessSelDisplay = "inline";
      } else {
           thicknessSlider.style.display = "none";
-          thicknessSelDisplay = "none"
+          thicknessSelDisplay = "none";
      };
 };
 
@@ -102,13 +122,33 @@ RGB3.addEventListener('input', colourSelWindowChange);
 thicknessChange.addEventListener("click", changeStateThicknessSlider);
 thicknessSlider.addEventListener('input', thicknessUpdate);
 
+fillShape.addEventListener('input', () => {fillShapeToggle = fillShape.checked; console.log(fillShapeToggle)});
+
 clearCanvasButton.addEventListener('click', function () {
      ctx.clearRect(0, 0, paintCanvas.width, paintCanvas.height);
 });
 
-lineDraw.addEventListener('click', () => { changePaintMode("line") });
-baseDraw.addEventListener('click', () => { changePaintMode("base") });
-circleDraw.addEventListener('click', () => { changePaintMode("circle") });
+lineDraw.addEventListener('click', () => { 
+     changePaintMode("line"); 
+     fillShapeWindow.style.display = "none";
+});
+
+baseDraw.addEventListener('click', () => { 
+     changePaintMode("base");
+     fillShapeWindow.style.display = "none";
+ });
+
+circleDraw.addEventListener('click', () => { 
+     changePaintMode("circle");
+     changeStateFillCheck(); 
+
+});
+
+rectDraw.addEventListener('click', () => { 
+     changePaintMode("rect");
+     changeStateFillCheck(); 
+
+});
 
 bStyle1.forEach(btn => {
      btn.addEventListener("click", () => {

@@ -13,6 +13,7 @@ body {
 }
 
 header {
+    font-family: clean;
     background-color: azure;
     padding: 30px;
     border: 50px solid;
@@ -136,6 +137,7 @@ h1 {
 }
 
 .inputFieldStyle1 {
+    margin: auto;
     color: rgb(14, 14, 14);
     border-width: 3px;
     border-radius: 4px;
@@ -143,4 +145,8 @@ h1 {
     border-style: ridge;
     background-color: rgb(223, 248, 248);
     border-color: rgb(197, 211, 216);
+}
+
+input[type="checkbox"]{
+    accent-color: rgb(183, 205, 205);
 }

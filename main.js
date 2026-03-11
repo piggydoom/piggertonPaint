@@ -15,6 +15,8 @@ var mouseHeldDown;
 var lastPreviewLineX;
 var lastPreviewLineY;
 var hoverOverCanvas;
+var cRadius;
+var fillShapeToggle;
 
 ctx.lineCap = "round";
 ctx.lineJoin = "round";
@@ -38,8 +40,6 @@ canvasOverlay.addEventListener('mouseleave', () => {
 //paint mode change
 function changePaintMode(mode) {
     paintMode = mode;
-    console.log(firstPointDefined);
-    console.log(paintMode);
 };
 
 
@@ -59,9 +59,29 @@ function overlayUpdate() {
         ctxOver.beginPath();
         ctxOver.arc(mouseX, mouseY, thickness / 2, 0, 2 * Math.PI);
         ctxOver.stroke();
-
         ctxOver.fill();
         ctxOver.closePath();
+    } else if (paintMode == "circle" && firstPointDefined == true) {
+
+        cRadius = Math.sqrt((mouseXbeginPoint - mouseX) ** 2 + (mouseYbeginPoint - mouseY) ** 2);
+        ctxOver.clearRect(0, 0, canvasOverlay.width, canvasOverlay.height);
+        ctxOver.beginPath();
+        ctxOver.arc(mouseXbeginPoint, mouseYbeginPoint, 1, 0, 2 * Math.PI);
+        ctxOver.moveTo(mouseXbeginPoint, mouseYbeginPoint);
+        ctxOver.lineTo(mouseX, mouseY);
+        ctxOver.stroke();
+        ctxOver.beginPath();
+        ctxOver.arc(mouseXbeginPoint, mouseYbeginPoint, cRadius, 0, 2 * Math.PI);
+        ctxOver.stroke();
+        ctxOver.closePath();
+    }
+    else if (paintMode == "rect" && firstPointDefined == true) {
+        ctxOver.clearRect(0, 0, canvasOverlay.width, canvasOverlay.height);
+        ctxOver.beginPath();
+        ctxOver.moveTo(mouseXbeginPoint, mouseYbeginPoint);
+        ctxOver.strokeRect(mouseXbeginPoint, mouseYbeginPoint, mouseX - mouseXbeginPoint, mouseY - mouseYbeginPoint);
+        ctxOver.stroke();
+        // firstPointDefined = false;
     }
 };
 
@@ -78,11 +98,11 @@ function paint() {
     }
 };
 
-//LINE MODE
+//SHAPE DRAW MODES
 canvasOverlay.addEventListener('mousedown', () => {
 
+    //LINE MODE
     if (paintMode == "line" && firstPointDefined != true) {
-        console.log("first point made");
         mouseXbeginPoint = mouseX;
         mouseYbeginPoint = mouseY;
         ctx.beginPath();
@@ -95,9 +115,44 @@ canvasOverlay.addEventListener('mousedown', () => {
         ctx.moveTo(mouseXbeginPoint, mouseYbeginPoint);
         firstPointDefined = false;
     }
+
+    //CIRCLE MODE
+    if (paintMode == "circle" && firstPointDefined != true) {
+        mouseXbeginPoint = mouseX;
+        mouseYbeginPoint = mouseY;
+        ctx.moveTo(mouseXbeginPoint, mouseYbeginPoint);
+        ctx.beginPath();
+        firstPointDefined = true;
+
+    } else if (paintMode == "circle" && firstPointDefined == true) {
+        //cRadius is defined in the update function
+        ctx.arc(mouseXbeginPoint, mouseYbeginPoint, cRadius, 0, 2 * Math.PI);
+        if(fillShapeToggle == true){ctx.fill()};   
+        ctx.stroke();
+        ctx.closePath();
+        ctxOver.clearRect(0, 0, canvasOverlay.width, canvasOverlay.height);
+        firstPointDefined = false;
+    }
+
+        //RECT MODE
+    if (paintMode == "rect" && firstPointDefined != true) {
+        mouseXbeginPoint = mouseX;
+        mouseYbeginPoint = mouseY;
+        // ctx.moveTo(mouseXbeginPoint, mouseYbeginPoint);
+        // ctx.beginPath();
+        firstPointDefined = true;
+    } else if(paintMode == "rect" && firstPointDefined == true){
+        ctx.strokeRect(mouseXbeginPoint, mouseYbeginPoint, mouseX - mouseXbeginPoint, mouseY - mouseYbeginPoint);
+        if(fillShapeToggle == true ){ctx.fillRect(mouseXbeginPoint, mouseYbeginPoint, mouseX - mouseXbeginPoint, mouseY - mouseYbeginPoint)};
+        firstPointDefined = false;
+    }
+
+    
+
 });
 
-//CIRCLE DRAW MODE
+
+
 
 
 //MOUSE COOORDINATES
