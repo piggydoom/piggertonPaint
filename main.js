@@ -60,25 +60,9 @@ function changePaintMode(mode) {
 function drawPreviewLine(){
         if (firstPointDefined == true) {
 
+            ctxOver.clearRect(0,0, canvasOverlay.width, canvasOverlay.height);
             ctxOver.beginPath();
-            ctxOver.moveTo(mouseXbeginPoint, mouseYbeginPoint);
-            
-            if(lastPreviewLineX != undefined){
-                ctxOver.strokeStyle = 'rgb(255, 255, 255)';
-                ctxOver.lineWidth = thickness + 50;
-                ctxOver.lineTo(lastPreviewLineX, lastPreviewLineY);
-                ctxOver.stroke();
-                ctxOver.closePath();
-
-                ctxOver.beginPath();
-                ctx.lineWidth = thickness;
-                ctxOver.moveTo(mouseXbeginPoint, mouseYbeginPoint);
-                ctxOver.strokeStyle = 'rgba(' + R + ',' + G + ',' + B + ',' + 255 + ')';
-            };
-
-            lastPreviewLineX = mouseX;
-            lastPreviewLineY = mouseY;
-         
+            ctxOver.moveTo(mouseXbeginPoint, mouseYbeginPoint);         
             ctxOver.lineTo(mouseX, mouseY);
             ctxOver.stroke();
             ctxOver.closePath();

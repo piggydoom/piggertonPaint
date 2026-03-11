@@ -8,16 +8,25 @@ const RGB3 = document.getElementById('RGB3');
 const clearCanvasButton = document.getElementById('resetCanvasButton');
 const lineDraw = document.getElementById('lineDraw');
 const baseDraw = document.getElementById('baseDraw');
+const bStyle1 = document.querySelectorAll(".bStyle1");
+
+bStyle1.forEach(btn => {
+  btn.addEventListener("click", () => {
+
+     bStyle1.forEach(b => b.ariaPressed = "false");
+     btn.ariaPressed = btn.ariaPressed = "true";
+     
+  });
+});
 
 let R = RGB1.value;
 let G = RGB2.value;
 let B = RGB3.value;
 
-
-
 let thickness = thicknessSlider.value;
 let colourSelDisplay = "none";
 let thicknessSelDisplay = "none";
+
 
 
 function clearInputField(fieldID, setTo){
