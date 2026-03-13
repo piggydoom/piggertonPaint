@@ -150,6 +150,8 @@ canvasOverlay.addEventListener('mousedown', () => {
         mouseXbeginPoint = mouseX;
         mouseYbeginPoint = mouseY;
         firstPointDefined = true;
+        } else if(paintMode == "poly" && firstPointDefined == true){
+            
         }
     
 
