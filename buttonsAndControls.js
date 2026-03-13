@@ -79,6 +79,7 @@ RGB2.addEventListener('input', colourSelWindowChange);
 RGB3.addEventListener('input', colourSelWindowChange);
 thicknessVal.addEventListener('input', thicknessUpdate);
 fillShape.addEventListener('input', () => {fillShapeToggle = fillShape.checked; console.log(fillShapeToggle)});
+polygonSidesInputField.addEventListener('input', () => {numSides = polygonSidesInputField.value});
 
 colourChange.addEventListener("click", () => {
      hideAllandShow(colourSelWindow, "inline");

@@ -151,7 +151,8 @@ canvasOverlay.addEventListener('mousedown', () => {
         mouseYbeginPoint = mouseY;
         firstPointDefined = true;
         } else if(paintMode == "poly" && firstPointDefined == true){
-            
+            cRadius = Math.sqrt((mouseXbeginPoint - mouseX) ** 2 + (mouseYbeginPoint - mouseY) ** 2);
+            sideLength = 2 * cRadius *Math.sin(Math.PI / numSides);
         }
     
 
