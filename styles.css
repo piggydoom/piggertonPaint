@@ -110,6 +110,13 @@ h1 {
     margin: 4px;
 }
 
+.bStyle3-sub {
+    padding: 7px; 
+    margin-top: auto; 
+    width: fit-content; 
+    display: none;
+}
+
 #screen {
     position: absolute;
     z-index: 1;

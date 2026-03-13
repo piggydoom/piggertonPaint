@@ -14,7 +14,9 @@ const rectDraw = document.getElementById('rectDraw');
 const fillShape = document.getElementById('fillShapeVal');
 const fillShapeWindow = document.getElementById('fillShape');
 const optionWindowElementsArray = Array.from(document.querySelector(".optionWindow").children);
-
+const polygonDraw = document.getElementById('polygonDraw');
+const polygonSides = document.getElementById('polygonSides');
+const polygonSidesInputField = document.getElementById('numSides');
 
 let R = RGB1.value;
 let G = RGB2.value;
@@ -38,6 +40,8 @@ colourSelWindowChange();
 
 window.onload = clearInputField("thicknessVal", 15);
 thicknessUpdate();
+
+window.onload = clearInputField("numSides", 5);
 
 //COLOUR SEL
 function openColourPicker() {
@@ -86,7 +90,6 @@ colourChange.addEventListener("click", () => {
 
 thicknessChange.addEventListener("click", () => {
      hideAllandShow(thicknessVal, "inline");
-     // thicknessSlider.style.display = "inline";
 });
 
 clearCanvasButton.addEventListener('click', function () {
@@ -106,14 +109,16 @@ baseDraw.addEventListener('click', () => {
 circleDraw.addEventListener('click', () => { 
      changePaintMode("circle");
      hideAllandShow(fillShapeWindow, "block");
-     // fillShapeWindow.style.display = "block";
-
 });
 
 rectDraw.addEventListener('click', () => { 
      changePaintMode("rect");
      hideAllandShow(fillShapeWindow, "block");
-     // fillShapeWindow.style.display = "block";
+});
+
+polygonDraw.addEventListener('click', () => {
+     changePaintMode("poly");
+     hideAllandShow(polygonSides, "block");
 });
 
 

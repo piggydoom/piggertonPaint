@@ -138,8 +138,6 @@ canvasOverlay.addEventListener('mousedown', () => {
     if (paintMode == "rect" && firstPointDefined != true) {
         mouseXbeginPoint = mouseX;
         mouseYbeginPoint = mouseY;
-        // ctx.moveTo(mouseXbeginPoint, mouseYbeginPoint);
-        // ctx.beginPath();
         firstPointDefined = true;
     } else if(paintMode == "rect" && firstPointDefined == true){
         ctx.strokeRect(mouseXbeginPoint, mouseYbeginPoint, mouseX - mouseXbeginPoint, mouseY - mouseYbeginPoint);
@@ -147,6 +145,12 @@ canvasOverlay.addEventListener('mousedown', () => {
         firstPointDefined = false;
     }
 
+        //POLYGON MODE
+        if (paintMode == "poly" && firstPointDefined != true) {
+        mouseXbeginPoint = mouseX;
+        mouseYbeginPoint = mouseY;
+        firstPointDefined = true;
+        }
     
 
 });
