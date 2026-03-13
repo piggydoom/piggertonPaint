@@ -205,6 +205,5 @@ document.addEventListener('keydown', function (event) {
         // console.log("lastPreviewLine coords= " + lastPreviewLineX, lastPreviewLineY);
         // console.log("hoverOverCanvas= " + hoverOverCanvas);
         // console.log("paintMode= " + paintMode);
-
     }
 });

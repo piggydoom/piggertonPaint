@@ -1,7 +1,7 @@
 const colourChange = document.getElementById("colourWheel");
 const colourSelWindow = document.getElementById("colourSel");
 const thicknessChange = document.getElementById("brushSize");
-const thicknessSlider = document.getElementById("thicknessVal");
+const thicknessVal = document.getElementById("thicknessVal");
 const RGB1 = document.getElementById('RGB1');
 const RGB2 = document.getElementById('RGB2');
 const RGB3 = document.getElementById('RGB3');
@@ -13,12 +13,14 @@ const circleDraw = document.getElementById('circleDraw');
 const rectDraw = document.getElementById('rectDraw');
 const fillShape = document.getElementById('fillShapeVal');
 const fillShapeWindow = document.getElementById('fillShape');
+const optionWindowElementsArray = Array.from(document.querySelector(".optionWindow").children);
+
 
 let R = RGB1.value;
 let G = RGB2.value;
 let B = RGB3.value;
 
-let thickness = thicknessSlider.value;
+let thickness = thicknessVal.value;
 let colourSelDisplay = "none";
 let thicknessSelDisplay = "none";
 let fillShapeSelDisplay = "none";
@@ -43,39 +45,12 @@ function openColourPicker() {
      openColourSel();
 };
 
-function changeStateColourPicker() {
-     if (colourSelDisplay == "none") {
-          fillShapeWindow.style.display = "none";
-          thicknessSelDisplay = "none";
-          thicknessSlider.style.display = "none";
-          colourSelWindow.style.display = "inline";
-          RGB1.style.display = "inline";
-          RGB2.style.display = "inline";
-          RGB3.style.display = "inline";
-          colourSelDisplay = "inline";
-     } else {
-          colourSelWindow.style.display = "none";
-          colourSelDisplay = "none";
-          RGB1.style.display = "none";
-          RGB2.style.display = "none";
-          RGB3.style.display = "none";
-     }
+function hideAllandShow(show, showDisplay){
+     optionWindowElementsArray.forEach(item => {
+          if(getComputedStyle(item).display != "none" && item != show){item.style.display = "none"}
+          if(getComputedStyle(item).display == "none" && item == show){item.style.display = showDisplay};
+    });
 };
-
-function changeStateFillCheck(){
-     if(fillShapeSelDisplay == "none"){
-          fillShapeWindow.style.display = "block";
-          colourSelDisplay = "none";
-          RGB1.style.display = "none";
-          RGB2.style.display = "none";
-          RGB3.style.display = "none";
-          colourSelWindow.style.display = "none";
-          thicknessSlider.style.display = "none";
-          thicknessSelDisplay = "none";
-
-     }
-}
-
 
 function colourSelWindowChange() {
      R = RGB1.value;
@@ -85,44 +60,34 @@ function colourSelWindowChange() {
      ctx.fillStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
      ctxOver.strokeStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
      colourSelWindow.style.backgroundColor = 'rgb(' + R + ',' + G + ',' + B + ')';
-     // console.log("R" + R + " G" + G + " B" + B);
-
 };
 
 function thicknessUpdate() {
-     thickness = thicknessSlider.value;
+     thickness = thicknessVal.value;
      ctx.lineWidth = thickness;
      ctxOver.lineWidth = thickness;
 };
 
-//PAINT THICKNESS
-function changeStateThicknessSlider() {
-     if (thicknessSelDisplay == "none") {
-          fillShapeWindow.style.display = "none";
-          colourSelDisplay = "none";
-          RGB1.style.display = "none";
-          RGB2.style.display = "none";
-          RGB3.style.display = "none";
-          colourSelWindow.style.display = "none";
-          thicknessSlider.style.display = "inline";
-          thicknessSelDisplay = "inline";
-     } else {
-          thicknessSlider.style.display = "none";
-          thicknessSelDisplay = "none";
-     };
-};
-
-
 //eventlisteners
-colourChange.addEventListener("click", changeStateColourPicker);
+
 RGB1.addEventListener('input', colourSelWindowChange);
 RGB2.addEventListener('input', colourSelWindowChange);
 RGB3.addEventListener('input', colourSelWindowChange);
-
-thicknessChange.addEventListener("click", changeStateThicknessSlider);
-thicknessSlider.addEventListener('input', thicknessUpdate);
-
+thicknessVal.addEventListener('input', thicknessUpdate);
 fillShape.addEventListener('input', () => {fillShapeToggle = fillShape.checked; console.log(fillShapeToggle)});
+
+colourChange.addEventListener("click", () => {
+     hideAllandShow(colourSelWindow, "inline");
+          colourSelWindow.style.display = "inline";
+          RGB1.style.display = "inline";
+          RGB2.style.display = "inline";
+          RGB3.style.display = "inline";
+});
+
+thicknessChange.addEventListener("click", () => {
+     hideAllandShow(thicknessVal, "inline");
+     // thicknessSlider.style.display = "inline";
+});
 
 clearCanvasButton.addEventListener('click', function () {
      ctx.clearRect(0, 0, paintCanvas.width, paintCanvas.height);
@@ -140,15 +105,17 @@ baseDraw.addEventListener('click', () => {
 
 circleDraw.addEventListener('click', () => { 
      changePaintMode("circle");
-     changeStateFillCheck(); 
+     hideAllandShow(fillShapeWindow, "block");
+     // fillShapeWindow.style.display = "block";
 
 });
 
 rectDraw.addEventListener('click', () => { 
      changePaintMode("rect");
-     changeStateFillCheck(); 
-
+     hideAllandShow(fillShapeWindow, "block");
+     // fillShapeWindow.style.display = "block";
 });
+
 
 bStyle1.forEach(btn => {
      btn.addEventListener("click", () => {
