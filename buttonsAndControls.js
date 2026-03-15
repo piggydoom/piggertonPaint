@@ -22,6 +22,8 @@ let R = RGB1.value;
 let G = RGB2.value;
 let B = RGB3.value;
 
+let numSides = polygonSidesInputField.value;
+
 let thickness = thicknessVal.value;
 let colourSelDisplay = "none";
 let thicknessSelDisplay = "none";
