@@ -159,8 +159,8 @@ input[type="checkbox"]{
 }
 
 #experimentalColourSelection{
-    width: 255px;
-    height: 255px;
-    background-color: aqua;
+    width: 70px;
+    height: 70px;
+    background-image: linear-gradient(to right, #ff8a00, #e52e71);
     display: inline-flex;
 }
