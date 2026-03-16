@@ -14,15 +14,10 @@ const rectDraw = document.getElementById('rectDraw');
 const fillShape = document.getElementById('fillShapeVal');
 const fillShapeWindow = document.getElementById('fillShape');
 const optionWindowElementsArray = Array.from(document.querySelector(".optionWindow").children);
-const polygonDraw = document.getElementById('polygonDraw');
-const polygonSides = document.getElementById('polygonSides');
-const polygonSidesInputField = document.getElementById('numSides');
 
 let R = RGB1.value;
 let G = RGB2.value;
 let B = RGB3.value;
-
-let numSides = polygonSidesInputField.value;
 
 let thickness = thicknessVal.value;
 let colourSelDisplay = "none";
@@ -42,8 +37,6 @@ colourSelWindowChange();
 
 window.onload = clearInputField("thicknessVal", 15);
 thicknessUpdate();
-
-window.onload = clearInputField("numSides", 5);
 
 //COLOUR SEL
 function openColourPicker() {
@@ -81,7 +74,6 @@ RGB2.addEventListener('input', colourSelWindowChange);
 RGB3.addEventListener('input', colourSelWindowChange);
 thicknessVal.addEventListener('input', thicknessUpdate);
 fillShape.addEventListener('input', () => {fillShapeToggle = fillShape.checked; console.log(fillShapeToggle)});
-polygonSidesInputField.addEventListener('input', () => {numSides = polygonSidesInputField.value});
 
 colourChange.addEventListener("click", () => {
      hideAllandShow(colourSelWindow, "inline");
@@ -118,12 +110,6 @@ rectDraw.addEventListener('click', () => {
      changePaintMode("rect");
      hideAllandShow(fillShapeWindow, "block");
 });
-
-polygonDraw.addEventListener('click', () => {
-     changePaintMode("poly");
-     hideAllandShow(polygonSides, "block");
-});
-
 
 bStyle1.forEach(btn => {
      btn.addEventListener("click", () => {

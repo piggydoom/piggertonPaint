@@ -157,3 +157,10 @@ h1 {
 input[type="checkbox"]{
     accent-color: rgb(183, 205, 205);
 }
+
+#experimentalColourSelection{
+    width: 255px;
+    height: 255px;
+    background-color: aqua;
+    display: inline-flex;
+}

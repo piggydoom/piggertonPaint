@@ -144,58 +144,6 @@ canvasOverlay.addEventListener('mousedown', () => {
         if (fillShapeToggle == true) { ctx.fillRect(mouseXbeginPoint, mouseYbeginPoint, mouseX - mouseXbeginPoint, mouseY - mouseYbeginPoint) };
         firstPointDefined = false;
     }
-
-    //POLYGON MODE
-    if (paintMode == "poly" && firstPointDefined != true) {
-        mouseXbeginPoint = mouseX;
-        mouseYbeginPoint = mouseY;
-        firstPointDefined = true;
-    } else if (paintMode == "poly" && firstPointDefined == true) {
-        cRadius = Math.sqrt((mouseXbeginPoint - mouseX) ** 2 + (mouseYbeginPoint - mouseY) ** 2);
-        // sideLength = 2 * cRadius * Math.sin(Math.PI / numSides);
-        sideLength = 200;
-        interiorAngle = ((numSides - 2) * Math.PI) / numSides;
-
-        //find starting point later, not important.
-
-        for (let i = 0; i + 1 < numSides; i++) {
-            const angle = i * interiorAngle;
-
-            if (i === 0) {
-                //console.log("first iteration");
-                ctx.moveTo(mouseXbeginPoint, mouseYbeginPoint);
-                ctx.beginPath();
-                x = mouseXbeginPoint;
-                y = mouseYbeginPoint; 
-            }
-            else {
-
-                
-                
-                nY = y + sideLength * Math.sin(angle);
-                nX = x + sideLength * Math.cos(angle);
-
-                console.log("iteration " + i + "... x, y= " + Math.round(x) + ", " + Math.round(y) + "... nX, nY= " + Math.round(nX) + ", " + Math.round(nY));
-
-                ctx.lineTo(nX, nY);
-                ctx.moveTo(nX, nY);
-                ctx.stroke();
-
-                // ctx.closePath();
-
-                x = nX;
-                y = nY;
-
-            }
-    
-
-        };
-
-
-        firstPointDefined = false
-    }
-
-
 });
 
 
