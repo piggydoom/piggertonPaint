@@ -1,8 +1,10 @@
 const paintCanvas = document.getElementById('paintCanvas');
 const canvasOverlay = document.getElementById('GUIdisplayCanvas');
 const canvasWrapper = document.getElementsByClassName('canvasWrapper');
+const selectionBoxCanvas = document.getElementById('selectionBoxCanvas');
 const ctx = paintCanvas.getContext('2d');
 const ctxOver = canvasOverlay.getContext('2d');
+const ctxSelectionBox = selectionBoxCanvas.getContext('2d');
 
 let mouseXbeginPoint = "50";
 let mouseYbeginPoint = "50";
@@ -17,6 +19,11 @@ var lastPreviewLineY;
 var hoverOverCanvas;
 var cRadius;
 var fillShapeToggle;
+
+ctx.fillStyle = 'rgb(255, 0, 0)';
+ctxOver.fillStyle= 'rgb(255, 0, 0)';
+ctx.strokeStyle = 'rgb(255, 0, 0)';
+ctxOver.srokeStyle= 'rgb(255, 0, 0)';
 
 ctx.lineCap = "round";
 ctx.lineJoin = "round";

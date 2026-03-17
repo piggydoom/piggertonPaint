@@ -8,10 +8,20 @@
 
 <body>
     <header>
+
+        <div id="colourSelectionUI">
+            <div id="selectionBoxWrapper">
+                <div id="selectionBox"></div>
+                <canvas id="selectionBoxCanvas"></canvas>
+                </div>
+        </div>
+
+          <input id="hueSlider" type="range" value="0" max="360" min="0">
+
         <h1>piggerton paint very good simulator</h1>
-        <!-- <br> -->
+         
         <button class="bStyle2" id="resetCanvasButton">CLEAR CANVAS</button>
-        <div id="experimentalColourSelection"></div>
+        
         <br>
 
         <button class="bStyle3" id="colourWheel"><img src="assets/colourWheel.png" style="width: 20px;"></button>

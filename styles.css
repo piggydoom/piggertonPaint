@@ -13,6 +13,20 @@ body {
 }
 
 header {
+    /* display: grid;
+    /* grid-template-columns: 1fr auto;
+    justify-content: start; */
+    /* display: flex;
+    font-family: clean;
+    background-color: azure;
+    padding: 30px;
+    border: 50px solid;
+    border-width: 4px;
+    border-color: rgb(82, 61, 56);
+    border-radius: 30px;
+    position: relative; */
+    /* justify-content: space-between; */
+
     font-family: clean;
     background-color: azure;
     padding: 30px;
@@ -21,13 +35,15 @@ header {
     border-color: rgb(82, 61, 56);
     border-radius: 30px;
     position: relative;
+    overflow:hidden;
 }
 
 h1 {
     font-family: title;
     font-weight: bold;
     font-size: 40px;
-    margin: 0%;
+    margin: 0px;
+    width: fit-content;
 }
 
 .canvasWrapper {
@@ -158,9 +174,46 @@ input[type="checkbox"]{
     accent-color: rgb(183, 205, 205);
 }
 
-#experimentalColourSelection{
-    width: 70px;
-    height: 70px;
-    background-image: linear-gradient(to right, #ff8a00, #e52e71);
-    display: inline-flex;
+#colourSelectionUI{
+    float: right;
 }
+
+#hueSlider{
+width: 120px;
+background-color: rgb(214, 233, 233);
+border: 3px ridge rgb(168, 196, 196);
+border-radius: 30px;
+
+}
+
+#hueSlider::-moz-range-thumb{
+    background-color: black;
+}
+
+#selectionBoxWrapper{
+    display:flex;
+    justify-content: center;  
+    align-items: center;
+    position: relative;
+    height: 120px;
+    width: 120px;
+}
+
+#selectionBox{
+    position: absolute;
+    width: 120px;
+    height: 120px;
+
+    background-image: 
+    linear-gradient(to top, black, transparent 50%),
+    linear-gradient(to right, rgb(255, 255, 255), rgb(255, 0, 0));
+    border: 5px ridge rgb(168, 196, 196);
+}
+
+#selectionBoxCanvas{
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    z-index: 2;
+}
+

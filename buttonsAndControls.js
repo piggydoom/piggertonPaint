@@ -15,9 +15,12 @@ const fillShape = document.getElementById('fillShapeVal');
 const fillShapeWindow = document.getElementById('fillShape');
 const optionWindowElementsArray = Array.from(document.querySelector(".optionWindow").children);
 
-let R = RGB1.value;
-let G = RGB2.value;
-let B = RGB3.value;
+const hueSlider = document.getElementById('hueSlider');
+const selectionBox = document.getElementById('selectionBox');
+
+// let R = RGB1.value;
+// let G = RGB2.value;
+// let B = RGB3.value;
 
 let thickness = thicknessVal.value;
 let colourSelDisplay = "none";
@@ -33,16 +36,18 @@ function clearInputField(fieldID, setTo) {
 window.onload = clearInputField("RGB1", 255);
 window.onload = clearInputField("RGB2", 90);
 window.onload = clearInputField("RGB3", 90);
-colourSelWindowChange();
+
+window.onload = clearInputField("hueSlider", 0);
+// colourSelWindowChange();
 
 window.onload = clearInputField("thicknessVal", 15);
 thicknessUpdate();
 
 //COLOUR SEL
-function openColourPicker() {
-     console.log("open");
-     openColourSel();
-};
+// function openColourPicker() {
+//      console.log("open");
+//      openColourSel();
+// };
 
 function hideAllandShow(show, showDisplay){
      optionWindowElementsArray.forEach(item => {
@@ -51,15 +56,15 @@ function hideAllandShow(show, showDisplay){
     });
 };
 
-function colourSelWindowChange() {
-     R = RGB1.value;
-     G = RGB2.value;
-     B = RGB3.value;
-     ctx.strokeStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
-     ctx.fillStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
-     ctxOver.strokeStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
-     colourSelWindow.style.backgroundColor = 'rgb(' + R + ',' + G + ',' + B + ')';
-};
+// function colourSelWindowChange() {
+//      R = RGB1.value;
+//      G = RGB2.value;
+//      B = RGB3.value;
+//      ctx.strokeStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
+//      ctx.fillStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
+//      ctxOver.strokeStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
+//      colourSelWindow.style.backgroundColor = 'rgb(' + R + ',' + G + ',' + B + ')';
+// };
 
 function thicknessUpdate() {
      thickness = thicknessVal.value;
@@ -69,19 +74,26 @@ function thicknessUpdate() {
 
 //eventlisteners
 
-RGB1.addEventListener('input', colourSelWindowChange);
-RGB2.addEventListener('input', colourSelWindowChange);
-RGB3.addEventListener('input', colourSelWindowChange);
+// RGB1.addEventListener('input', colourSelWindowChange);
+// RGB2.addEventListener('input', colourSelWindowChange);
+// RGB3.addEventListener('input', colourSelWindowChange);
+
 thicknessVal.addEventListener('input', thicknessUpdate);
 fillShape.addEventListener('input', () => {fillShapeToggle = fillShape.checked; console.log(fillShapeToggle)});
 
-colourChange.addEventListener("click", () => {
-     hideAllandShow(colourSelWindow, "inline");
-          colourSelWindow.style.display = "inline";
-          RGB1.style.display = "inline";
-          RGB2.style.display = "inline";
-          RGB3.style.display = "inline";
-});
+// colourChange.addEventListener("click", () => {
+//      hideAllandShow(colourSelWindow, "inline");
+//           colourSelWindow.style.display = "inline";
+//           RGB1.style.display = "inline";
+//           RGB2.style.display = "inline";
+//           RGB3.style.display = "inline";
+// });
+
+hueSlider.addEventListener('input', () => {
+console.log("hue-rotate(" + hueSlider.value + "deg)");
+selectionBox.style.filter = "hue-rotate(" + hueSlider.value + "deg)";
+}
+);
 
 thicknessChange.addEventListener("click", () => {
      hideAllandShow(thicknessVal, "inline");
