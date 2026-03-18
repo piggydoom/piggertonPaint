@@ -27,6 +27,8 @@ let colourSelDisplay = "none";
 let thicknessSelDisplay = "none";
 let fillShapeSelDisplay = "none";
 
+var pixelData;
+
 
 
 function clearInputField(fieldID, setTo) {
@@ -92,6 +94,8 @@ fillShape.addEventListener('input', () => {fillShapeToggle = fillShape.checked; 
 hueSlider.addEventListener('input', () => {
 console.log("hue-rotate(" + hueSlider.value + "deg)");
 selectionBox.style.filter = "hue-rotate(" + hueSlider.value + "deg)";
+findMouseXColourSel(selectionBoxCanvas, evt);
+console.log(selectedX);
 }
 );
 
@@ -131,3 +135,32 @@ bStyle1.forEach(btn => {
 
      });
 });
+
+selectionBoxCanvas.addEventListener('mousedown', (evt) => {
+     findMouseXColourSel(selectionBoxCanvas, evt);
+     findMouseYColourSel(selectionBoxCanvas, evt);
+     console.log("y= " + selectedY);
+     console.log("x= " + selectedX);
+
+     pixelData = ctxSelectionBox.getImageData(selectedX, selectedY, 1, 1);
+
+     const red = pixelData[0];   // Red component
+     const green = pixelData[1]; // Green component
+     const blue = pixelData[2];  // Blue component
+     const alpha = pixelData[3]; // Alpha component (transparency)
+
+     console.log(`RGBA: ${red}, ${green}, ${blue}, ${alpha}`);
+});
+
+function findMouseXColourSel(selectionBoxCanvas, evt) {
+    const selectionBoxCanvasPos = selectionBoxCanvas.getBoundingClientRect();
+    selectedX = evt.clientX - selectionBoxCanvasPos.left;
+    { return selectedX };
+};
+
+function findMouseYColourSel(selectionBoxCanvas, evt) {
+    const selectionBoxCanvasPos = selectionBoxCanvas.getBoundingClientRect();
+    selectedY = evt.clientY- selectionBoxCanvasPos.top;
+    { return selectedY };
+};
+

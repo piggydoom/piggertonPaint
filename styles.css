@@ -176,6 +176,7 @@ input[type="checkbox"]{
 
 #colourSelectionUI{
     float: right;
+    align-items: center;
 }
 
 #hueSlider{
