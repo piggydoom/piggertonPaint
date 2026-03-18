@@ -191,16 +191,16 @@ border-radius: 30px;
     background-color: black;
 }
 
-#selectionBoxWrapper{
+/* #selectionBoxWrapper{
     display:flex;
     justify-content: center;  
     align-items: center;
     position: relative;
     height: 120px;
     width: 120px;
-}
+} */
 
-#selectionBox{
+/* #selectionBox{
     position: absolute;
     width: 120px;
     height: 120px;
@@ -209,10 +209,11 @@ border-radius: 30px;
     linear-gradient(to top, black, transparent 50%),
     linear-gradient(to right, rgb(255, 255, 255), rgb(255, 0, 0));
     border: 5px ridge rgb(168, 196, 196);
-}
+} */
 
 #selectionBoxCanvas{
-    position: absolute;
+    /* border: 5px ridge rgb(168, 196, 196); */
+    display: flex;
     width: 120px;
     height: 120px;
     z-index: 2;

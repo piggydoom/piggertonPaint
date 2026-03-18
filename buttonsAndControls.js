@@ -16,7 +16,6 @@ const fillShapeWindow = document.getElementById('fillShape');
 const optionWindowElementsArray = Array.from(document.querySelector(".optionWindow").children);
 
 const hueSlider = document.getElementById('hueSlider');
-const selectionBox = document.getElementById('selectionBox');
 
 // let R = RGB1.value;
 // let G = RGB2.value;
@@ -26,6 +25,7 @@ let thickness = thicknessVal.value;
 let colourSelDisplay = "none";
 let thicknessSelDisplay = "none";
 let fillShapeSelDisplay = "none";
+let CSBhue = 0;
 
 var pixelData;
 
@@ -74,6 +74,33 @@ function thicknessUpdate() {
      ctxOver.lineWidth = thickness;
 };
 
+function resetLinearGradientCSB(){
+     //reset
+     ctxSelectionBox.fillStyle = 'rgba(0,0,0,255)'
+     ctxSelectionBox.fillRect(0, 0, selectionBoxCanvas.width, selectionBoxCanvas.height);
+
+     //create gradients
+     const CSBLuminescenceGradient = ctxSelectionBox.createLinearGradient(0, 0, 0, selectionBoxCanvas.height);
+     CSBLuminescenceGradient.addColorStop(0, 'rgba(0, 0, 0, 0');
+     CSBLuminescenceGradient.addColorStop(1, 'rgba(0, 0, 0, 255');
+     const CSBHueGradient = ctxSelectionBox.createLinearGradient(0, 0, selectionBoxCanvas.width, 0);
+     CSBHueGradient.addColorStop(0, 'rgb(255, 255, 255)');
+     CSBHueGradient.addColorStop(1, `hsl(${CSBhue}, 100%, 50%)`);
+
+     //fill hue gradient
+     ctxSelectionBox.fillStyle = CSBHueGradient;
+     ctxSelectionBox.fillRect(0, 0, selectionBoxCanvas.width, selectionBoxCanvas.height);
+     
+     //fill lum gradient
+     ctxSelectionBox.fillStyle = CSBLuminescenceGradient;
+     ctxSelectionBox.fillRect(0, 0, selectionBoxCanvas.width, selectionBoxCanvas.height);
+
+};
+
+window.onload = () => {
+     resetLinearGradientCSB();
+};
+
 //eventlisteners
 
 // RGB1.addEventListener('input', colourSelWindowChange);
@@ -92,12 +119,14 @@ fillShape.addEventListener('input', () => {fillShapeToggle = fillShape.checked; 
 // });
 
 hueSlider.addEventListener('input', () => {
-console.log("hue-rotate(" + hueSlider.value + "deg)");
-selectionBox.style.filter = "hue-rotate(" + hueSlider.value + "deg)";
-findMouseXColourSel(selectionBoxCanvas, evt);
+// console.log("hue-rotate(" + hueSlider.value + "deg)");
+CSBhue = hueSlider.value;
+resetLinearGradientCSB()
+
+// findMouseXColourSel(selectionBoxCanvas, evt);
+// findMouseYColourSel(selectionBoxCanvas, evt);
 console.log(selectedX);
-}
-);
+});
 
 thicknessChange.addEventListener("click", () => {
      hideAllandShow(thicknessVal, "inline");
@@ -142,14 +171,21 @@ selectionBoxCanvas.addEventListener('mousedown', (evt) => {
      console.log("y= " + selectedY);
      console.log("x= " + selectedX);
 
-     pixelData = ctxSelectionBox.getImageData(selectedX, selectedY, 1, 1);
+     pixelData = ctxSelectionBox.getImageData(selectedX, selectedY, 1, 1).data;
 
-     const red = pixelData[0];   // Red component
-     const green = pixelData[1]; // Green component
-     const blue = pixelData[2];  // Blue component
-     const alpha = pixelData[3]; // Alpha component (transparency)
+     const R = pixelData[0];   // Red component
+     const G = pixelData[1]; // Green component
+     const B = pixelData[2];  // Blue component
+     const A = pixelData[3]; // Alpha component (transparency)
 
-     console.log(`RGBA: ${red}, ${green}, ${blue}, ${alpha}`);
+     //find the RGB values based upon the percentage across the field the selected x/y is and matching that to the percentage of 255 to fix the saturation but still get the colour from getimagedata
+     saturationMultiplyFactor = 1+ selectedY / 120;
+     console.log(saturationMultiplyFactor);
+
+     ctx.strokeStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
+     ctxOver.fillStyle = 'rgb(' + R + ',' + G + ',' + B +')';
+     console.log('rgb(' + R + ',' + G + ',' + B +')');
+     ctxOver.fillRect(50, 50, 40, 40);
 });
 
 function findMouseXColourSel(selectionBoxCanvas, evt) {
