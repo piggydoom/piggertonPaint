@@ -212,7 +212,7 @@ border-radius: 30px;
 } */
 
 #selectionBoxCanvas{
-    /* border: 5px ridge rgb(168, 196, 196); */
+    border: 5px ridge rgb(168, 196, 196);
     display: flex;
     width: 120px;
     height: 120px;

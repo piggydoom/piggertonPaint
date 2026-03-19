@@ -28,8 +28,11 @@ let fillShapeSelDisplay = "none";
 let CSBhue = 0;
 
 var pixelData;
-
-
+var SBCPixelPosX;
+var SBCPixelPosY;
+let CSBsaturation = 100;
+let CSBluminescence = 100;
+var iRow;
 
 function clearInputField(fieldID, setTo) {
      document.getElementById(fieldID).value = setTo;
@@ -76,25 +79,34 @@ function thicknessUpdate() {
 
 function resetLinearGradientCSB(){
      //reset
-     ctxSelectionBox.fillStyle = 'rgba(0,0,0,255)'
-     ctxSelectionBox.fillRect(0, 0, selectionBoxCanvas.width, selectionBoxCanvas.height);
+     // ctxSelectionBox.fillStyle = 'rgba(0,0,0,0)'
+     // ctxSelectionBox.fillRect(0, 0, selectionBoxCanvas.width, selectionBoxCanvas.height);
+     //let i = 0; i < (selectionBoxCanvas.width / 5) * (selectionBoxCanvas.height / 5); i++ for loop
+     ctxSelectionBox.moveTo(selectionBoxCanvas.width, 0);
+     SBCPixelPosX = 0;
+     SBCPixelPosY = 0;
+     CSBsaturation = 0;
 
-     //create gradients
-     const CSBLuminescenceGradient = ctxSelectionBox.createLinearGradient(0, 0, 0, selectionBoxCanvas.height);
-     CSBLuminescenceGradient.addColorStop(0, 'rgba(0, 0, 0, 0');
-     CSBLuminescenceGradient.addColorStop(1, 'rgba(0, 0, 0, 255');
-     const CSBHueGradient = ctxSelectionBox.createLinearGradient(0, 0, selectionBoxCanvas.width, 0);
-     CSBHueGradient.addColorStop(0, 'rgb(255, 255, 255)');
-     CSBHueGradient.addColorStop(1, `hsl(${CSBhue}, 100%, 50%)`);
-
-     //fill hue gradient
-     ctxSelectionBox.fillStyle = CSBHueGradient;
-     ctxSelectionBox.fillRect(0, 0, selectionBoxCanvas.width, selectionBoxCanvas.height);
-     
-     //fill lum gradient
-     ctxSelectionBox.fillStyle = CSBLuminescenceGradient;
-     ctxSelectionBox.fillRect(0, 0, selectionBoxCanvas.width, selectionBoxCanvas.height);
-
+     while(SBCPixelPosY <= selectionBoxCanvas.height){
+          
+          if(SBCPixelPosX < selectionBoxCanvas.width){
+          // x
+          // console.log(ctxSelectionBox.fillStyle = 'HSL(' + CSBhue + ',' + CSBsaturation + '%,' + CSBluminescence +'%)');
+          // console.log(SBCPixelPosX + " " + SBCPixelPosY);   
+          ctxSelectionBox.fillStyle = 'HSL(' + CSBhue + ',' + CSBsaturation + '%,' + CSBluminescence +'%)';
+          ctxSelectionBox.fillRect(SBCPixelPosX, SBCPixelPosY, 5, 5);
+          SBCPixelPosX = SBCPixelPosX + 5;
+          CSBsaturation = CSBsaturation + (100 / 60);
+          
+          // console.log("irow=" + iRow);
+          } else if(SBCPixelPosX >= selectionBoxCanvas.width){
+               SBCPixelPosX = 0;
+               SBCPixelPosY = SBCPixelPosY + 5;
+               CSBluminescence = CSBluminescence - (100 / 300); 
+               console.log(SBCPixelPosY);
+          };
+          
+     };
 };
 
 window.onload = () => {
