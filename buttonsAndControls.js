@@ -86,6 +86,7 @@ function resetLinearGradientCSB(){
      SBCPixelPosX = 0;
      SBCPixelPosY = 0;
      CSBsaturation = 0;
+     let SBCBaseLumen = 100;
 
      while(SBCPixelPosY <= selectionBoxCanvas.height){
           
@@ -97,12 +98,15 @@ function resetLinearGradientCSB(){
           ctxSelectionBox.fillRect(SBCPixelPosX, SBCPixelPosY, 5, 5);
           SBCPixelPosX = SBCPixelPosX + 5;
           CSBsaturation = CSBsaturation + (100 / 60);
+          CSBluminescence = CSBluminescence - (50 / 60);
           
           // console.log("irow=" + iRow);
           } else if(SBCPixelPosX >= selectionBoxCanvas.width){
                SBCPixelPosX = 0;
                SBCPixelPosY = SBCPixelPosY + 5;
-               CSBluminescence = CSBluminescence - (100 / 300); 
+               SBCBaseLumen = SBCBaseLumen - (100 / (selectionBoxCanvas.height / 5));
+               CSBsaturation = 0;
+               CSBluminescence = SBCBaseLumen; 
                console.log(SBCPixelPosY);
           };
           
