@@ -20,17 +20,7 @@ var hoverOverCanvas;
 var cRadius;
 var fillShapeToggle;
 
-ctx.fillStyle = 'rgb(255, 0, 0)';
-ctxOver.fillStyle= 'rgb(255, 0, 0)';
-ctx.strokeStyle = 'rgb(255, 0, 0)';
-ctxOver.srokeStyle= 'rgb(255, 0, 0)';
-
-ctx.lineCap = "round";
-ctx.lineJoin = "round";
-ctxOver.lineCap = "round";
-ctxOver.lineJoin = "round";
-
-//
+//immediant ctx/ctxOver stylings called in b&c.js
 
 canvasOverlay.addEventListener("mouseenter", () => {
     if (paintMode == "base", () => {
@@ -88,7 +78,6 @@ function overlayUpdate() {
         ctxOver.moveTo(mouseXbeginPoint, mouseYbeginPoint);
         ctxOver.strokeRect(mouseXbeginPoint, mouseYbeginPoint, mouseX - mouseXbeginPoint, mouseY - mouseYbeginPoint);
         ctxOver.stroke();
-        // firstPointDefined = false;
     }
 };
 
@@ -143,6 +132,7 @@ canvasOverlay.addEventListener('mousedown', () => {
 
     //RECT MODE
     if (paintMode == "rect" && firstPointDefined != true) {
+        console.log(ctxOver.strokeStle);
         mouseXbeginPoint = mouseX;
         mouseYbeginPoint = mouseY;
         firstPointDefined = true;
@@ -161,7 +151,6 @@ function findMouseX(paintCanvas, evt) {
     mouseX = evt.clientX - paintCanvasPos.left;
     { return mouseX };
 };
-
 function findMouseY(paintCanvas, evt) {
     const paintCanvasPos = paintCanvas.getBoundingClientRect();
     mouseY = evt.clientY - paintCanvasPos.top;
@@ -191,7 +180,6 @@ document.addEventListener('mouseup', () => {
 canvasOverlay.addEventListener("mousemove", (evt) => {
     findMouseX(paintCanvas, evt);
     findMouseY(paintCanvas, evt);
-
     paint();
     overlayUpdate();
 });
@@ -205,5 +193,6 @@ document.addEventListener('keydown', function (event) {
         // console.log("lastPreviewLine coords= " + lastPreviewLineX, lastPreviewLineY);
         // console.log("hoverOverCanvas= " + hoverOverCanvas);
         // console.log("paintMode= " + paintMode);
+        
     }
 });

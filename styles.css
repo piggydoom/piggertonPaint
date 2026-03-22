@@ -13,20 +13,6 @@ body {
 }
 
 header {
-    /* display: grid;
-    /* grid-template-columns: 1fr auto;
-    justify-content: start; */
-    /* display: flex;
-    font-family: clean;
-    background-color: azure;
-    padding: 30px;
-    border: 50px solid;
-    border-width: 4px;
-    border-color: rgb(82, 61, 56);
-    border-radius: 30px;
-    position: relative; */
-    /* justify-content: space-between; */
-
     font-family: clean;
     background-color: azure;
     padding: 30px;
@@ -84,10 +70,6 @@ h1 {
     transform: scale(105%);
 }
 
-/* .bStyle1[aria-pressed="false"] {
-    filter: brightness(100%);
-} */
-
 .bStyle1:active {
     transition: 25ms;
     transform: scale(97%);
@@ -139,18 +121,6 @@ h1 {
 
 }
 
-
-
-#colourSel {
-    border-radius: 30px;
-    display: none;
-    position: absolute;
-    z-index: 1;
-    width: 50px;
-    height: 50px;
-    background-color: rgb(0, 0, 0);
-}
-
 .RGBinputs {
     display: none;
 }
@@ -190,26 +160,6 @@ border-radius: 30px;
 #hueSlider::-moz-range-thumb{
     background-color: black;
 }
-
-/* #selectionBoxWrapper{
-    display:flex;
-    justify-content: center;  
-    align-items: center;
-    position: relative;
-    height: 120px;
-    width: 120px;
-} */
-
-/* #selectionBox{
-    position: absolute;
-    width: 120px;
-    height: 120px;
-
-    background-image: 
-    linear-gradient(to top, black, transparent 50%),
-    linear-gradient(to right, rgb(255, 255, 255), rgb(255, 0, 0));
-    border: 5px ridge rgb(168, 196, 196);
-} */
 
 #selectionBoxCanvas{
     border: 5px ridge rgb(168, 196, 196);
