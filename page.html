@@ -10,7 +10,7 @@
     <header>
         
         <div id="colourSelectionUI">
-                <button style="float:inline-start;"></button>
+                <canvas id="settingsPreviewCanvasDisplay" width="55" height="55"></canvas>
                 <span id="canvasAndSlider">
                 <canvas id="selectionBoxCanvas" width="120" height="120"></canvas>
                 <input id="hueSlider" type="range" value="0" max="360" min="0">
@@ -25,6 +25,7 @@
 
         <button class="bStyle3" id="colourIDinput"><img src="assets/colourWheel.png" style="width: 20px;"></button>
         <button class="bStyle3" id="brushSize"><img src="assets/thickness.png" style="width: 20px;"></button>
+        <button class="bStyle3" id="eyedropper"><img src="assets/eyedropper.png" style="width: 20px;"></button>
 
         <button class="bStyle1" id="lineDraw" aria-pressed="false"><img src="assets/lineDraw.png"style="width: 20px;"></button>
         <button class="bStyle1" id="baseDraw" aria-pressed="true"><img src="assets/baseDraw.png" style="width: 20px;"></button>

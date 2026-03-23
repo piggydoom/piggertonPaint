@@ -15,6 +15,7 @@ const fillShapeWindow = document.getElementById('fillShape');
 const hueSlider = document.getElementById('hueSlider');
 const optionWindowElementsArray = Array.from(document.querySelector(".optionWindow").children);
 const RGBinputElements = Array.from(document.querySelectorAll(".RGBinputs"));
+const settingsPreviewCanvasDisplay = document.getElementById("settingsPreviewCanvasDisplay");
 
 let thickness = thicknessVal.value;
 let colourSelDisplay = "none";
@@ -46,6 +47,7 @@ function thicknessUpdate() {
      thickness = thicknessVal.value;
      ctx.lineWidth = thickness;
      ctxOver.lineWidth = thickness;
+     drawPreviewCursor();
 };
 
 function resetLinearGradientCSB(){
@@ -53,7 +55,6 @@ function resetLinearGradientCSB(){
      SBCPixelPosY = 0;
      SBCsat = 0;
      let SBCBaseLumen = 100;
-     let jumps 
      SBClumen = SBCBaseLumen;
 
      ctxSelectionBox.clearRect(0,0, selectionBoxCanvas.width, selectionBoxCanvas.height);
@@ -96,6 +97,17 @@ function findMouseYColourSel(selectionBoxCanvas, evt) {
 
 //immediant function calls
 window.addEventListener('load', () => {
+     ctx.fillStyle = 'rgb(255, 90, 90)';
+     ctxOver.fillStyle= 'rgb(255, 90, 90)';
+     ctx.strokeStyle = 'rgb(255, 90, 90)';
+     ctxOver.strokeStyle = 'rgb(255, 90, 90)'; 
+     ctxPaintPrev.fillStyle = 'rgb(255, 90, 90)'; 
+     ctxPaintPrev.strokeStyle = 'rgb(255, 90, 90)'; 
+     ctx.lineCap = "round";
+     ctx.lineJoin = "round";
+     ctxOver.lineCap = "round";
+     ctxOver.lineJoin = "round";
+
      resetLinearGradientCSB();
      clearInputField("RGB1", 255);
      clearInputField("RGB2", 90);
@@ -103,15 +115,9 @@ window.addEventListener('load', () => {
      clearInputField("hueSlider", 0);
      clearInputField("thicknessVal", 15);
      thicknessUpdate();
+     drawPreviewCursor();
 
-     ctx.fillStyle = 'rgb(255, 90, 90)';
-     ctxOver.fillStyle= 'rgb(255, 90, 90)';
-     ctx.strokeStyle = 'rgb(255, 90, 90)';
-     ctxOver.strokeStyle = 'rgb(255, 90, 90)';
-     ctx.lineCap = "round";
-     ctx.lineJoin = "round";
-     ctxOver.lineCap = "round";
-     ctxOver.lineJoin = "round";
+     
 });
 
 function rgbToHue(r, g, b) {
@@ -156,6 +162,16 @@ if(field.value < min){
      field.value = min;
 };
 }
+
+function drawPreviewCursor(){
+     ctxPaintPrev.beginPath();
+     ctxPaintPrev.clearRect(0,0, settingsPreviewCanvasDisplay.width, settingsPreviewCanvasDisplay.height);
+     ctxPaintPrev.arc(settingsPreviewCanvasDisplay.width / 2, settingsPreviewCanvasDisplay.height / 2, thickness / 2, 0, Math.PI * 2);
+     ctxPaintPrev.fill();
+     ctxPaintPrev.stroke();
+}
+
+
 
 //button click and input change listeners
 thicknessVal.addEventListener('input', thicknessUpdate);
@@ -213,10 +229,12 @@ RGBinputElements.forEach(inputElement => {
           ctx.fillStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
           ctxOver.fillStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
           ctxOver.strokeStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
+          ctxPaintPrev.fillStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
+          ctxPaintPrev.strokeStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
           SBChue = rgbToHue(R, G, B);
           hueSlider.value = rgbToHue(R, G, B);
           resetLinearGradientCSB();
-          
+          drawPreviewCursor();
      });
 });
 
@@ -233,8 +251,11 @@ selectionBoxCanvas.addEventListener('mousedown', (evt) => {
      ctx.strokeStyle = 'HSL(' + SBChue + ',' + saturationValue + '%,' + lumenValue +'%)';
      ctx.fillStyle = 'HSL(' + SBChue + ',' + saturationValue + '%,' + lumenValue +'%)';
      ctxOver.fillStyle = 'HSL(' + SBChue + ',' + saturationValue + '%,' + lumenValue +'%)';
-     ctxOver.strokeStyle = 'HSL(' + SBChue + ',' + saturationValue + '%,' + lumenValue +'%)';  
+     ctxOver.strokeStyle = 'HSL(' + SBChue + ',' + saturationValue + '%,' + lumenValue +'%)'; 
+     ctxPaintPrev.fillStyle = 'HSL(' + SBChue + ',' + saturationValue + '%,' + lumenValue +'%)';
+     ctxPaintPrev.strokeStyle = 'HSL(' + SBChue + ',' + saturationValue + '%,' + lumenValue +'%)';
      resetLinearGradientCSB();
+     drawPreviewCursor();
 });
 
 

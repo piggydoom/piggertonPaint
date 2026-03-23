@@ -5,6 +5,7 @@ const selectionBoxCanvas = document.getElementById('selectionBoxCanvas');
 const ctx = paintCanvas.getContext('2d');
 const ctxOver = canvasOverlay.getContext('2d');
 const ctxSelectionBox = selectionBoxCanvas.getContext('2d');
+const ctxPaintPrev = settingsPreviewCanvasDisplay.getContext('2d');
 
 let mouseXbeginPoint = "50";
 let mouseYbeginPoint = "50";

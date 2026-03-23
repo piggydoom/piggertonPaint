@@ -146,7 +146,15 @@ input[type="checkbox"]{
 
 #colourSelectionUI{
     float: right;
- 
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+#settingsPreviewCanvasDisplay{
+    border: 3px ridge rgb(168, 196, 196);
+    border-radius: 10px;
 }
 
 .canvasAndSlider{
