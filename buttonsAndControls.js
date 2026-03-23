@@ -268,7 +268,10 @@ selectionBoxCanvas.addEventListener('mousedown', (evt) => {
      resetLinearGradientSBC();
      drawPreviewCursor();
 
-     
+     ctxSelectionBox.strokeStyle = 'rgb(255,255,255)'
+     ctxSelectionBox.beginPath();
+     ctxSelectionBox.arc(selectedX, selectedY, 2, 0, 2 * Math.PI);
+     ctxSelectionBox.stroke();
 });
 
 //SAVE
