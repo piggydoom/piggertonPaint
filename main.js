@@ -132,7 +132,6 @@ canvasOverlay.addEventListener('mousedown', () => {
 
     //RECT MODE
     if (paintMode == "rect" && firstPointDefined != true) {
-        console.log(ctxOver.strokeStle);
         mouseXbeginPoint = mouseX;
         mouseYbeginPoint = mouseY;
         firstPointDefined = true;

@@ -23,6 +23,8 @@ let fillShapeSelDisplay = "none";
 let SBChue = 0;
 let saturationValue = 100;
 let lumenValue = 68;
+let selectedX = 81;
+let selectedY = 9;
 
 var SBCPixelPosX;
 var SBCPixelPosY;
@@ -51,25 +53,33 @@ function resetLinearGradientCSB(){
      SBCPixelPosY = 0;
      SBCsat = 0;
      let SBCBaseLumen = 100;
+     let jumps 
      SBClumen = SBCBaseLumen;
+
+     ctxSelectionBox.clearRect(0,0, selectionBoxCanvas.width, selectionBoxCanvas.height);
+
+     
 
      while(SBCPixelPosY <= selectionBoxCanvas.height){
           
           if(SBCPixelPosX < selectionBoxCanvas.width){ 
           ctxSelectionBox.fillStyle = 'HSL(' + SBChue + ',' + SBCsat + '%,' + SBClumen +'%)';
-          ctxSelectionBox.fillRect(SBCPixelPosX, SBCPixelPosY, 5, 5);
-          SBCPixelPosX = SBCPixelPosX + 5;
-          SBCsat = SBCsat + (100 / 60);
-          SBClumen = SBClumen - (50 / 60);
+          ctxSelectionBox.fillRect(SBCPixelPosX, SBCPixelPosY, 1, 1);
+          SBCPixelPosX = SBCPixelPosX + 1;
+          SBCsat = SBCsat + (100 / (selectionBoxCanvas.width / 1));
+          SBClumen = SBClumen - (50 / (selectionBoxCanvas.width / 1));
           } else if(SBCPixelPosX >= selectionBoxCanvas.width){
                SBCPixelPosX = 0;
-               SBCPixelPosY = SBCPixelPosY + 5;
-               SBCBaseLumen = SBCBaseLumen - (100 / (selectionBoxCanvas.height / 5));
+               SBCPixelPosY = SBCPixelPosY + 1;
+               SBCBaseLumen = SBCBaseLumen - (100 / (selectionBoxCanvas.height / 1));
                SBCsat = 0;
                SBClumen = SBCBaseLumen; 
           };
-          
      };
+     ctxSelectionBox.strokeStyle = 'rgb(255,255,255)'
+     ctxSelectionBox.beginPath();
+     ctxSelectionBox.arc(selectedX, selectedY, 2, 0, 2 * Math.PI);
+     ctxSelectionBox.stroke();
 };
 
 //find mouse X, Y coords relative to inside the colour selection box
@@ -103,6 +113,49 @@ window.addEventListener('load', () => {
      ctxOver.lineCap = "round";
      ctxOver.lineJoin = "round";
 });
+
+function rgbToHue(r, g, b) {
+  // Convert R, G, B to the range 0-1
+  r /= 255;
+  g /= 255;
+  b /= 255;
+
+  let max = Math.max(r, g, b);
+  let min = Math.min(r, g, b);
+  let h;
+  let d = max - min; // Chroma
+
+  if (max === min) {
+    h = 0; // Achromatic case (gray, white, black)
+  } else {
+    switch (max) {
+      case r:
+        h = (g - b) / d + (g < b ? 6 : 0);
+        break;
+      case g:
+        h = 2 + (b - r) / d;
+        break;
+      case b:
+        h = 4 + (r - g) / d;
+        break;
+    }
+    h *= 60; // Convert to degrees
+  }
+  
+  return h; // Hue value in degrees (0-360)
+};
+
+function valueInputLimCheck(inputID, min, max){
+const field = document.getElementById(inputID);
+
+if(field.value > max){
+     field.value = max;
+};
+
+if(field.value < min){
+     field.value = min;
+};
+}
 
 //button click and input change listeners
 thicknessVal.addEventListener('input', thicknessUpdate);
@@ -148,7 +201,24 @@ colourIDinput.addEventListener('click', () => {
      RGB3.style.display = "inline";
 });
 
+RGBinputElements.forEach(inputElement => {
+     inputElement.addEventListener('input', () => {
+          valueInputLimCheck(inputElement.id, 0, 255);
 
+          R = RGB1.value;
+          G = RGB2.value;
+          B = RGB3.value;
+
+          ctx.strokeStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
+          ctx.fillStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
+          ctxOver.fillStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
+          ctxOver.strokeStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
+          SBChue = rgbToHue(R, G, B);
+          hueSlider.value = rgbToHue(R, G, B);
+          resetLinearGradientCSB();
+          
+     });
+});
 
 
 
@@ -163,7 +233,8 @@ selectionBoxCanvas.addEventListener('mousedown', (evt) => {
      ctx.strokeStyle = 'HSL(' + SBChue + ',' + saturationValue + '%,' + lumenValue +'%)';
      ctx.fillStyle = 'HSL(' + SBChue + ',' + saturationValue + '%,' + lumenValue +'%)';
      ctxOver.fillStyle = 'HSL(' + SBChue + ',' + saturationValue + '%,' + lumenValue +'%)';
-     ctxOver.strokeStyle = 'HSL(' + SBChue + ',' + saturationValue + '%,' + lumenValue +'%)';
+     ctxOver.strokeStyle = 'HSL(' + SBChue + ',' + saturationValue + '%,' + lumenValue +'%)';  
+     resetLinearGradientCSB();
 });
 
 

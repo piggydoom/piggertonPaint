@@ -8,10 +8,13 @@
 
 <body>
     <header>
-
+        
         <div id="colourSelectionUI">
-                <canvas id="selectionBoxCanvas"></canvas>
+                <button style="float:inline-start;"></button>
+                <span id="canvasAndSlider">
+                <canvas id="selectionBoxCanvas" width="120" height="120"></canvas>
                 <input id="hueSlider" type="range" value="0" max="360" min="0">
+                </span>
         </div>
 
         <h1>piggerton paint very good simulator</h1>
@@ -31,9 +34,9 @@
         <br>
 
         <div class="optionWindow">
-            <input class="RGBinputs inputFieldStyle1" id="RGB1" placeholder="RGB1" type="number">
-            <input class="RGBinputs inputFieldStyle1" id="RGB2" placeholder="RGB2" type="number">
-            <input class="RGBinputs inputFieldStyle1" id="RGB3" placeholder="RGB3" type="number">
+            <input class="RGBinputs inputFieldStyle1" id="RGB1" placeholder="RGB1" type="number" max="255">
+            <input class="RGBinputs inputFieldStyle1" id="RGB2" placeholder="RGB2" type="number" max="255">
+            <input class="RGBinputs inputFieldStyle1" id="RGB3" placeholder="RGB3" type="number" max="255">
         
 
         <input class="inputFieldStyle1" id="thicknessVal" min="1" max="50" type="number" value="15">
