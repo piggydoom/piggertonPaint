@@ -16,6 +16,8 @@ const hueSlider = document.getElementById('hueSlider');
 const optionWindowElementsArray = Array.from(document.querySelector(".optionWindow").children);
 const RGBinputElements = Array.from(document.querySelectorAll(".RGBinputs"));
 const settingsPreviewCanvasDisplay = document.getElementById("settingsPreviewCanvasDisplay");
+const eyedropperTool = document.getElementById("eyedropper");
+const savePNG = document.getElementById("saveCanvas");
 
 let thickness = thicknessVal.value;
 let colourSelDisplay = "none";
@@ -50,7 +52,7 @@ function thicknessUpdate() {
      drawPreviewCursor();
 };
 
-function resetLinearGradientCSB(){
+function resetLinearGradientSBC(){
      SBCPixelPosX = 0;
      SBCPixelPosY = 0;
      SBCsat = 0;
@@ -58,8 +60,6 @@ function resetLinearGradientCSB(){
      SBClumen = SBCBaseLumen;
 
      ctxSelectionBox.clearRect(0,0, selectionBoxCanvas.width, selectionBoxCanvas.height);
-
-     
 
      while(SBCPixelPosY <= selectionBoxCanvas.height){
           
@@ -77,10 +77,7 @@ function resetLinearGradientCSB(){
                SBClumen = SBCBaseLumen; 
           };
      };
-     ctxSelectionBox.strokeStyle = 'rgb(255,255,255)'
-     ctxSelectionBox.beginPath();
-     ctxSelectionBox.arc(selectedX, selectedY, 2, 0, 2 * Math.PI);
-     ctxSelectionBox.stroke();
+     
 };
 
 //find mouse X, Y coords relative to inside the colour selection box
@@ -108,7 +105,7 @@ window.addEventListener('load', () => {
      ctxOver.lineCap = "round";
      ctxOver.lineJoin = "round";
 
-     resetLinearGradientCSB();
+     resetLinearGradientSBC();
      clearInputField("RGB1", 255);
      clearInputField("RGB2", 90);
      clearInputField("RGB3", 90);
@@ -120,36 +117,38 @@ window.addEventListener('load', () => {
      
 });
 
-function rgbToHue(r, g, b) {
-  // Convert R, G, B to the range 0-1
-  r /= 255;
-  g /= 255;
-  b /= 255;
+function RGBToHSL(r, g, b) {
+    // Normalize RGB values to a range of 0 to 1
+    r /= 255;
+    g /= 255;
+    b /= 255;
 
-  let max = Math.max(r, g, b);
-  let min = Math.min(r, g, b);
-  let h;
-  let d = max - min; // Chroma
+    let max = Math.max(r, g, b);
+    let min = Math.min(r, g, b);
+    let h, s, l = (max + min) / 2;
 
-  if (max === min) {
-    h = 0; // Achromatic case (gray, white, black)
-  } else {
-    switch (max) {
-      case r:
-        h = (g - b) / d + (g < b ? 6 : 0);
-        break;
-      case g:
-        h = 2 + (b - r) / d;
-        break;
-      case b:
-        h = 4 + (r - g) / d;
-        break;
+    if (max === min) {
+        h = s = 0; // Achromatic (gray)
+    } else {
+        let d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch (max) {
+            case r:
+                h = (g - b) / d + (g < b ? 6 : 0);
+                break;
+            case g:
+                h = (b - r) / d + 2;
+                break;
+            case b:
+                h = (r - g) / d + 4;
+                break;
+        }
+        h /= 6;
     }
-    h *= 60; // Convert to degrees
-  }
-  
-  return h; // Hue value in degrees (0-360)
-};
+
+    // Return HSL values: Hue [0-360), Saturation [0-100%], Lightness [0-100%]
+    return [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100)];
+}
 
 function valueInputLimCheck(inputID, min, max){
 const field = document.getElementById(inputID);
@@ -179,7 +178,14 @@ fillShape.addEventListener('input', () => {fillShapeToggle = fillShape.checked; 
 
 hueSlider.addEventListener('input', () => {
 SBChue = hueSlider.value;
-resetLinearGradientCSB();
+resetLinearGradientSBC();
+drawPreviewCursor();
+     ctx.strokeStyle = 'HSL(' + SBChue + ',' + saturationValue + '%,' + lumenValue +'%)';
+     ctx.fillStyle = 'HSL(' + SBChue + ',' + saturationValue + '%,' + lumenValue +'%)';
+     ctxOver.fillStyle = 'HSL(' + SBChue + ',' + saturationValue + '%,' + lumenValue +'%)';
+     ctxOver.strokeStyle = 'HSL(' + SBChue + ',' + saturationValue + '%,' + lumenValue +'%)'; 
+     ctxPaintPrev.fillStyle = 'HSL(' + SBChue + ',' + saturationValue + '%,' + lumenValue +'%)';
+     ctxPaintPrev.strokeStyle = 'HSL(' + SBChue + ',' + saturationValue + '%,' + lumenValue +'%)';
 });
 
 thicknessChange.addEventListener("click", () => {
@@ -217,6 +223,11 @@ colourIDinput.addEventListener('click', () => {
      RGB3.style.display = "inline";
 });
 
+eyedropperTool.addEventListener('click', () => {
+     changePaintMode("eyedrop");
+     hideAllandShow();
+})
+
 RGBinputElements.forEach(inputElement => {
      inputElement.addEventListener('input', () => {
           valueInputLimCheck(inputElement.id, 0, 255);
@@ -231,9 +242,9 @@ RGBinputElements.forEach(inputElement => {
           ctxOver.strokeStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
           ctxPaintPrev.fillStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
           ctxPaintPrev.strokeStyle = 'rgb(' + R + ',' + G + ',' + B + ')';
-          SBChue = rgbToHue(R, G, B);
-          hueSlider.value = rgbToHue(R, G, B);
-          resetLinearGradientCSB();
+          SBChue = RGBToHSL(R, G, B)[0];
+          hueSlider.value = RGBToHSL(R, G, B)[0];
+          resetLinearGradientSBC();
           drawPreviewCursor();
      });
 });
@@ -254,11 +265,21 @@ selectionBoxCanvas.addEventListener('mousedown', (evt) => {
      ctxOver.strokeStyle = 'HSL(' + SBChue + ',' + saturationValue + '%,' + lumenValue +'%)'; 
      ctxPaintPrev.fillStyle = 'HSL(' + SBChue + ',' + saturationValue + '%,' + lumenValue +'%)';
      ctxPaintPrev.strokeStyle = 'HSL(' + SBChue + ',' + saturationValue + '%,' + lumenValue +'%)';
-     resetLinearGradientCSB();
+     resetLinearGradientSBC();
      drawPreviewCursor();
+
+     
 });
 
-
+//SAVE
+savePNG.addEventListener('click', () => {
+const canvasURL = paintCanvas.toDataURL("image/png");
+const createAnchor = document.createElement('a');
+createAnchor.href = canvasURL;
+createAnchor.download = "testImage";
+createAnchor.click();
+createAnchor.remove();
+});
 
 
 

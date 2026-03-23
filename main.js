@@ -93,6 +93,8 @@ function paint() {
         mouseXbeginPoint = mouseX;
         mouseYbeginPoint = mouseY;
     }
+
+
 };
 
 //SHAPE DRAW MODES
@@ -143,6 +145,29 @@ canvasOverlay.addEventListener('mousedown', () => {
     }
 });
 
+//EYEDROPPER MODE
+canvasOverlay.addEventListener('mousedown', () => {
+        if(paintMode == "eyedrop") {
+        const eyedroppedPixelData = ctx.getImageData(mouseX, mouseY, 1, 1);
+        const sR = eyedroppedPixelData.data[0];
+        const sG = eyedroppedPixelData.data[1];
+        const sB = eyedroppedPixelData.data[2];
+
+        SBChue = RGBToHSL(sR, sG, sB)[0];
+        resetLinearGradientSBC();
+        hueSlider.value = RGBToHSL(sR, sG, sB)[0];
+
+        ctx.strokeStyle = 'rgb(' + sR + ',' + sG + ',' + sB + ')';
+        ctx.fillStyle = 'rgb(' + sR + ',' + sG + ',' + sB + ')';
+        ctxOver.fillStyle = 'rgb(' + sR + ',' + sG + ',' + sB + ')';
+        ctxOver.strokeStyle = 'rgb(' + sR + ',' + sG + ',' + sB + ')';
+        ctxPaintPrev.fillStyle = 'rgb(' + sR + ',' + sG + ',' + sB + ')';
+        ctxPaintPrev.strokeStyle = 'rgb(' + sR + ',' + sG + ',' + sB + ')';
+        resetLinearGradientSBC();
+        drawPreviewCursor();
+    }
+
+})
 
 
 //MOUSE COOORDINATES
